@@ -5,14 +5,14 @@
  */
 //PACKAGE MANAGEMENT COMPLETE
 package GUI;
-import Classes.Package;
+import Files.PackageFileIO;
 import javax.swing.JOptionPane;
 /**
  *
  * @author Miko
  */
 public class PackageMgmtJFrame extends javax.swing.JFrame {
-    Package packObj = new Package();
+    PackageFileIO packObj = new PackageFileIO();
     
     double rate;
     String title;
@@ -21,12 +21,12 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
     private void AutoGenerator(){
         String newPno,listPno;
         
-        packObj.FileIOObj.RetrievePackage();
-        if(packObj.FileIOObj.packV.size()==0){
+        packObj.RetrievePackage();
+        if(packObj.packV.size()==0){
             this.txtPackageNo.setText("111");
         }
         else {
-           newPno=Integer.toString((packObj.FileIOObj.packV.lastElement().getPackageNo())+1);
+           newPno=Integer.toString((packObj.packV.lastElement().getPackageNo())+1);
            this.txtPackageNo.setText(newPno.toString());
 
            int size = this.cboxPackageNo.getItemCount();
@@ -37,8 +37,8 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
                 }
             }
            //Add ComboBox Item   
-           for (int i = 0; i < packObj.FileIOObj.packV.size(); i++) {
-                listPno=Integer.toString(packObj.FileIOObj.packV.elementAt(i).getPackageNo());
+           for (int i = 0; i < packObj.packV.size(); i++) {
+                listPno=Integer.toString(packObj.packV.elementAt(i).getPackageNo());
                 this.cboxPackageNo.addItem(listPno);
             }
         }
@@ -492,7 +492,7 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
             return;
         }
 
-        packObj.FileIOObj.AddPackage(pNo, max, min, rate, title);
+        packObj.AddPackage(pNo, max, min, rate, title);
         JOptionPane.showMessageDialog(this, "Package Successful Added!", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
         AutoGenerator();
@@ -517,7 +517,7 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
         }
 
         
-        packObj.FileIOObj.EditPackage(pNo, max, min, rate, title);
+        packObj.EditPackage(pNo, max, min, rate, title);
         //packObj.FileIOObj.RetrievePackage();
         //System.out.println(packObj.FileIOObj.packV.elementAt(0).getPackageNo());
         JOptionPane.showMessageDialog(this, "Package Record Successful Edited!", "Information",
@@ -534,13 +534,13 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
         String No=this.cboxPackageNo.getSelectedItem().toString();
         
         //display all record according to packageNo
-        for (int i = 0; i < packObj.FileIOObj.packV.size(); i++) {
-            String tempNo = Integer.toString(packObj.FileIOObj.packV.elementAt(i).getPackageNo());
+        for (int i = 0; i < packObj.packV.size(); i++) {
+            String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
             if (tempNo.equals(No)) {
-                this.txtMax2.setText(Integer.toString(packObj.FileIOObj.packV.elementAt(i).getMax()));
-                this.txtMin2.setText(Integer.toString(packObj.FileIOObj.packV.elementAt(i).getMin()));
-                this.txtPackageTitle2.setText(packObj.FileIOObj.packV.elementAt(i).getTitle());
-                this.txtRate2.setText(Double.toString(packObj.FileIOObj.packV.elementAt(i).getRate()));
+                this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
+                this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
+                this.txtPackageTitle2.setText(packObj.packV.elementAt(i).getTitle());
+                this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
                 break;
             }
         }

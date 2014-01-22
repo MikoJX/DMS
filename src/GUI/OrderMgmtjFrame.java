@@ -6,6 +6,9 @@
 
 package GUI;
 import Classes.Order;
+import Files.OrderFileIO;
+import Files.CustomerFileIO;
+import Files.PackageFileIO;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +16,10 @@ import javax.swing.JOptionPane;
  * @author Miko
  */
 public class OrderMgmtjFrame extends javax.swing.JFrame {
-    Order orderObj = new Order();
+    OrderFileIO orderObj = new OrderFileIO();
+    CustomerFileIO custObj = new CustomerFileIO();
+    PackageFileIO packObj = new PackageFileIO();
+    
     double amount,weight;
     int pno,IC,orderNo;
     String sName,sAdd,name,cName,cAdd;
@@ -21,12 +27,12 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     private void AutoGenerator(){
         String newPno,listPno;
         
-        orderObj.FileIOObj.RetrieveOrder();
-        if(orderObj.FileIOObj.orderV.size()==0){
+        orderObj.RetrieveOrder();
+        if(orderObj.orderV.size()==0){
             this.txtOrderNo.setText("111");
         }
         else {
-           newPno=Integer.toString((orderObj.FileIOObj.orderV.lastElement().getOrderNo())+1);
+           newPno=Integer.toString((orderObj.orderV.lastElement().getOrderNo())+1);
            this.txtOrderNo.setText(newPno.toString());
 
 //           int size = this.cboxPackageNo.getItemCount();
@@ -691,22 +697,22 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         //DONE
         boolean recordCheck=false;
         String listCIC;
-        orderObj.CustObj.FileIOObj.RetrieveCust();
-        orderObj.CustObj.PackageObj.FileIOObj.RetrievePackage();
-        for (int i = 0; i < orderObj.CustObj.FileIOObj.custV.size(); i++) {
-             listCIC=Integer.toString(orderObj.CustObj.FileIOObj.custV.elementAt(i).getCustIC());
+        custObj.RetrieveCust();
+        packObj.RetrievePackage();
+        for (int i = 0; i < custObj.custV.size(); i++) {
+             listCIC=Integer.toString(custObj.custV.elementAt(i).getCustIC());
              if ((this.rbtnPackaga.isSelected()==true) && listCIC.equals(this.txtIC.getText())) {
-                this.txtName.setText(orderObj.CustObj.FileIOObj.custV.elementAt(i).getCustName());
-                this.txtSName.setText(orderObj.CustObj.FileIOObj.custV.elementAt(i).getShipperName());
-                this.txtSAdd.setText(orderObj.CustObj.FileIOObj.custV.elementAt(i).getShipperAdd());
-                pno=orderObj.CustObj.FileIOObj.custV.elementAt(i).PackageObj.getPackageNo();
+                this.txtName.setText(custObj.custV.elementAt(i).getCustName());
+                this.txtSName.setText(custObj.custV.elementAt(i).getShipperName());
+                this.txtSAdd.setText(custObj.custV.elementAt(i).getShipperAdd());
+                pno=custObj.custV.elementAt(i).PackageObj.getPackageNo();
                 
-                 for (int j = 0; j < orderObj.CustObj.PackageObj.FileIOObj.packV.size(); j++) {
-                     int pnoList = orderObj.CustObj.PackageObj.FileIOObj.packV.elementAt(j).getPackageNo();
+                 for (int j = 0; j < packObj.packV.size(); j++) {
+                     int pnoList = packObj.packV.elementAt(j).getPackageNo();
                      if(pno== pnoList) {
 //                        System.out.println(pno);
 //                        System.out.println(orderObj.CustObj.PackageObj.FileIOObj.packV.elementAt(j).getPackageNo());
-                        this.txtRate.setText(Double.toString(orderObj.CustObj.PackageObj.FileIOObj.packV.elementAt(j).getRate()));
+                        this.txtRate.setText(Double.toString(packObj.packV.elementAt(j).getRate()));
                         recordCheck=true;
                         break;
                      }
@@ -740,7 +746,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
         
         amount=Double.parseDouble(this.txtRate.getText()) * ((Double.parseDouble(this.txtWeight.getText()))/100);
-        orderObj.FileIOObj.AddOrder(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        orderObj.AddOrder(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
         JOptionPane.showMessageDialog(this, "Order Successful Added!", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
         ClearField();
@@ -749,12 +755,12 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
-        orderObj.FileIOObj.RetrieveOrder();
+        orderObj.RetrieveOrder();
         boolean recordCheck=false;
         String listCIC,listOno;
         
-        for (int i = 0; i < orderObj.FileIOObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.FileIOObj.orderV.elementAt(i).CustObj.getCustIC());
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+             listCIC=Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
              
              if (listCIC.equals(this.txtIC2.getText())) {
                  for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
@@ -773,10 +779,10 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
              }
         }
         
-        for (int i = 0; i < orderObj.FileIOObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.FileIOObj.orderV.elementAt(i).CustObj.getCustIC());
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+             listCIC=Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
              if (listCIC.equals(this.txtIC2.getText())) {
-                listOno=Integer.toString(orderObj.FileIOObj.orderV.elementAt(i).getOrderNo());
+                listOno=Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
                 this.cBoxOrderNo.addItem(listOno);
             }
         }

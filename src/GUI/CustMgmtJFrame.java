@@ -6,14 +6,17 @@
 //CUSTOMER MANAGEMENT COMPLETE
 
 package GUI;
-import Classes.Customer;
+import Files.CustomerFileIO;
+import Files.PackageFileIO;
 import javax.swing.JOptionPane;
 /**
  *
  * @author Miko
  */
 public class CustMgmtJFrame extends javax.swing.JFrame {
-    Customer custObj = new Customer();
+    CustomerFileIO custObj = new CustomerFileIO();
+    PackageFileIO packObj = new PackageFileIO();
+    
     
     int IC,pNo;
     String name,sName,sAdd;
@@ -519,7 +522,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         //DONE
         String listPno;
-        custObj.PackageObj.FileIOObj.RetrievePackage();
+        packObj.RetrievePackage();
        
         int size = this.cBoxPackageNo.getItemCount();
         //Remove ComboBox Item
@@ -530,8 +533,8 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
              }
         }
         //Add ComboBox Item   
-        for (int i = 0; i < custObj.PackageObj.FileIOObj.packV.size(); i++) {
-             listPno=Integer.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getPackageNo());
+        for (int i = 0; i < packObj.packV.size(); i++) {
+             listPno=Integer.toString(packObj.packV.elementAt(i).getPackageNo());
              this.cBoxPackageNo.addItem(listPno);
              this.cBoxPackageNo2.addItem(listPno);
         } 
@@ -597,7 +600,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        custObj.FileIOObj.AddCust(IC,name,sName,sAdd,pNo);
+        custObj.AddCust(IC,name,sName,sAdd,pNo);
         JOptionPane.showMessageDialog(this, "Customer Successful Added!", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
         ClearField();
@@ -608,12 +611,12 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         String No=this.cBoxPackageNo.getSelectedItem().toString();
         
         //display all record according to packageNo
-        for (int i = 0; i < custObj.PackageObj.FileIOObj.packV.size(); i++) {
-            String tempNo = Integer.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getPackageNo());
+        for (int i = 0; i < packObj.packV.size(); i++) {
+            String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
             if (tempNo.equals(No)) {
-                this.txtMax.setText(Integer.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getMax()));
-                this.txtMin.setText(Integer.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getMin()));
-                this.txtRate.setText(Double.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getRate()));
+                this.txtMax.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
+                this.txtMin.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
+                this.txtRate.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
                 break;
             }
         }
@@ -633,7 +636,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
             return;
         }
         
-        custObj.FileIOObj.EditCust(IC,name,sName,sAdd,pNo);
+        custObj.EditCust(IC,name,sName,sAdd,pNo);
         JOptionPane.showMessageDialog(this, "Customer Record Successful Edited!", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
         
@@ -650,12 +653,12 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
          String No=this.cBoxPackageNo2.getSelectedItem().toString();
         
         //display all record according to packageNo
-        for (int i = 0; i < custObj.PackageObj.FileIOObj.packV.size(); i++) {
-            String tempNo = Integer.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getPackageNo());
+        for (int i = 0; i < packObj.packV.size(); i++) {
+            String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
             if (tempNo.equals(No)) {
-                this.txtMax2.setText(Integer.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getMax()));
-                this.txtMin2.setText(Integer.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getMin()));
-                this.txtRate2.setText(Double.toString(custObj.PackageObj.FileIOObj.packV.elementAt(i).getRate()));
+                this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
+                this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
+                this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
                 break;
             }
         }
@@ -664,14 +667,14 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         boolean recordCheck=false;
         String listCIC;
-        custObj.FileIOObj.RetrieveCust();
-        for (int i = 0; i < custObj.FileIOObj.custV.size(); i++) {
-             listCIC=Integer.toString(custObj.FileIOObj.custV.elementAt(i).getCustIC());
+        custObj.RetrieveCust();
+        for (int i = 0; i < custObj.custV.size(); i++) {
+             listCIC=Integer.toString(custObj.custV.elementAt(i).getCustIC());
              if (listCIC.equals(this.txtIC2.getText())) {
-                this.txtName2.setText(custObj.FileIOObj.custV.elementAt(i).getCustName());
-                this.txtSName2.setText(custObj.FileIOObj.custV.elementAt(i).getShipperName());
-                this.txtSAdd2.setText(custObj.FileIOObj.custV.elementAt(i).getShipperAdd());
-                this.cBoxPackageNo2.setSelectedItem(Integer.toString(custObj.FileIOObj.custV.elementAt(i).PackageObj.getPackageNo()));
+                this.txtName2.setText(custObj.custV.elementAt(i).getCustName());
+                this.txtSName2.setText(custObj.custV.elementAt(i).getShipperName());
+                this.txtSAdd2.setText(custObj.custV.elementAt(i).getShipperAdd());
+                this.cBoxPackageNo2.setSelectedItem(Integer.toString(custObj.custV.elementAt(i).PackageObj.getPackageNo()));
                 this.txtName2.setEnabled(true);
                 this.txtSAdd2.setEnabled(true);
                 this.txtSName2.setEnabled(true);

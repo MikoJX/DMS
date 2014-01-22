@@ -5,7 +5,7 @@
  */
 
 package Classes;
-import Files.OrderFileIO;
+
 /**
  *
  * @author Miko
@@ -13,7 +13,6 @@ import Files.OrderFileIO;
 public class Order implements java.io.Serializable{
     private double Amount,Weight;
     public Customer CustObj=new Customer();
-    public OrderFileIO FileIOObj;
     private int OrderNo;
     private String OStatus,CName,CAdd;
 

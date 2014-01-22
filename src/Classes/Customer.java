@@ -5,7 +5,6 @@
  */
 
 package Classes;
-import Files.CustomerFileIO;
 /**
  *
  * @author Miko
@@ -13,7 +12,6 @@ import Files.CustomerFileIO;
 public class Customer implements java.io.Serializable {
     private int CustIC;
     private String CustName,ShipperName,ShipperAdd;
-    public CustomerFileIO FileIOObj;  
     public Package PackageObj= new Package();
     
     public Customer(){

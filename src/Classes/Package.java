@@ -5,7 +5,6 @@
  */
 
 package Classes;
-import Files.PackageFileIO;
 /**
  *
  * @author Miko
@@ -15,7 +14,6 @@ public class Package implements java.io.Serializable {
     private double Rate;
     private String Title;
     private int PackageNo,Min,Max;
-    public PackageFileIO FileIOObj;
 
     public Package(){
         this.Rate = 0;
