@@ -20,12 +20,12 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     CustomerFileIO custObj = new CustomerFileIO();
     PackageFileIO packObj = new PackageFileIO();
     
-    double amount,weight;
+    double amount,weight,rate;
     int pno,IC,orderNo;
     String sName,sAdd,name,cName,cAdd;
     
     private void AutoGenerator(){
-        String newPno,listPno;
+        String newPno;
         
         orderObj.RetrieveOrder();
         if(orderObj.orderV.size()==0){
@@ -34,19 +34,6 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         else {
            newPno=Integer.toString((orderObj.orderV.lastElement().getOrderNo())+1);
            this.txtOrderNo.setText(newPno.toString());
-
-//           int size = this.cboxPackageNo.getItemCount();
-//           //Remove ComboBox Item
-//           if (size>1) {
-//                for (int i = 1; i < size; i++) { 
-//                this.cboxPackageNo.removeItemAt(1);
-//                }
-//            }
-//           //Add ComboBox Item   
-//           for (int i = 0; i < orderObj.FileIOObj.orderV.size(); i++) {
-//                listPno=Integer.toString(orderObj.FileIOObj.orderV.elementAt(i).getPackageNo());
-//                this.cboxPackageNo.addItem(listPno);
-//            }
         }
     }
     
@@ -271,6 +258,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         jLabel17.setText("Rate:");
 
         txtRate.setText("5.0");
+        txtRate.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -426,6 +414,11 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
 
         btnSave2.setText("Save");
         btnSave2.setEnabled(false);
+        btnSave2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSave2ActionPerformed(evt);
+            }
+        });
 
         txtCAdd2.setColumns(20);
         txtCAdd2.setRows(5);
@@ -447,6 +440,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         jLabel18.setText("Rate:");
 
         txtRate2.setText("5.0");
+        txtRate2.setEnabled(false);
 
         cBoxOrderNo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
         cBoxOrderNo.addItemListener(new java.awt.event.ItemListener() {
@@ -694,7 +688,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnPackaga1ActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        //DONE
+        //Customer Record SEARCH DONE
         boolean recordCheck=false;
         String listCIC;
         custObj.RetrieveCust();
@@ -710,8 +704,6 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                  for (int j = 0; j < packObj.packV.size(); j++) {
                      int pnoList = packObj.packV.elementAt(j).getPackageNo();
                      if(pno== pnoList) {
-//                        System.out.println(pno);
-//                        System.out.println(orderObj.CustObj.PackageObj.FileIOObj.packV.elementAt(j).getPackageNo());
                         this.txtRate.setText(Double.toString(packObj.packV.elementAt(j).getRate()));
                         recordCheck=true;
                         break;
@@ -719,18 +711,15 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                  }
             }
         } 
-            if (recordCheck) {
-                //this.btnSave2.setEnabled(true);
-            }else {
+            if (recordCheck==false) {
                 ClearField();
-                //this.btnSave2.setEnabled(false);
-                JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        try {
+        //NEW ORDER COMPLETE
+         try {
             orderNo=Integer.parseInt(this.txtOrderNo.getText());
             IC=Integer.parseInt(this.txtIC.getText());
             weight = Double.parseDouble(this.txtWeight.getText());
@@ -738,23 +727,21 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             sName=this.txtSName.getText();
             sAdd=this.txtSAdd.getText();
             cName = this.txtCName.getText();
-            cAdd=this.txtCAdd.getText(); 
+            cAdd=this.txtCAdd.getText();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Invalid Input Format", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid Input Format, Field Cannot be Empty", "Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        amount=Double.parseDouble(this.txtRate.getText()) * ((Double.parseDouble(this.txtWeight.getText()))/100);
+         
+        amount=((Double.parseDouble(this.txtWeight.getText()))/100) * Double.parseDouble(this.txtRate.getText()) ;
         orderObj.AddOrder(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
-        JOptionPane.showMessageDialog(this, "Order Successful Added!", "Information",
-                    JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Order Successful Added!", "Information",JOptionPane.INFORMATION_MESSAGE);
         ClearField();
-        
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
+        //SEARCH ORDER COMPLETE
         orderObj.RetrieveOrder();
         boolean recordCheck=false;
         String listCIC,listOno;
@@ -766,17 +753,10 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                  for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
                     this.cBoxOrderNo.removeItemAt(1);
                 }
-//                 this.cBoxOrderNo.removeAllItems();
-//                this.cBoxOrderNo.addItem("-");
                 recordCheck=true;
                 break;
             }
-             else {
-                 this.cBoxOrderNo.addItem("-");
-                 for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
-                    this.cBoxOrderNo.removeItemAt(1);
-                }
-             }
+             else {recordCheck=false;}           
         }
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
@@ -786,44 +766,69 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                 this.cBoxOrderNo.addItem(listOno);
             }
         }
-        this.cBoxOrderNo.removeItemAt(0);
+        
         if (recordCheck==false ) {
             ClearField();
-            JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",
-                    JOptionPane.ERROR_MESSAGE);
-            //this.btnSave2.setEnabled(true);
+            this.txtRate2.setText("5.0");
+            this.cBoxOrderNo.addItem("-");
+                 for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
+                    this.cBoxOrderNo.removeItemAt(0); }
+            JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
+            this.btnSave2.setEnabled(false);
+        }
+        else {
+            this.cBoxOrderNo.removeItemAt(0);
+            this.btnSave2.setEnabled(true);
         }
     }//GEN-LAST:event_btnSearch2ActionPerformed
 
     private void cBoxOrderNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxOrderNoActionPerformed
-        if (this.cBoxOrderNo.getItemCount()==0) {
-            String No=this.cBoxOrderNo.getSelectedItem().toString();
-        }
+       //CHANGE RECORD BASED ON ORDERNO COMPLETE
+        String No=this.cBoxOrderNo.getSelectedItem().toString();
         
+        if (this.cBoxOrderNo.getSelectedItem()!= "-") {
+            for (int i = 0; i <orderObj.orderV.size() ; i++) {
+                String tempNo = Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
+                if (tempNo.equals(No)){
+                    rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()/100);
+
+                    this.txtRate2.setText(Double.toString(Math.round(rate*100.0)/100.0));
+                    this.txtCName2.setText(orderObj.orderV.elementAt(i).getCName());
+                    this.txtCAdd2.setText(orderObj.orderV.elementAt(i).getCAdd());
+                    this.txtName2.setText(orderObj.orderV.elementAt(i).CustObj.getCustName());
+                    this.txtSName2.setText(orderObj.orderV.elementAt(i).CustObj.getShipperName());
+                    this.txtSAdd2.setText(orderObj.orderV.elementAt(i).CustObj.getShipperAdd());
+                    this.txtWeight2.setText(Double.toString(orderObj.orderV.elementAt(i).getWeight()));
+                }
+            }
+        }    
     }//GEN-LAST:event_cBoxOrderNoActionPerformed
 
     private void cBoxOrderNoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cBoxOrderNoItemStateChanged
-//        this.btnSave2.setEnabled(true); //set Save button Enable 
-//        
-//        String No=this.cBoxOrderNo.getSelectedItem().toString();
-//        
-//        ///////////////////////////////////
-//         BACK TO CONTINUE 
-//        ////////////////////////
-//        
-//        display all record according to packageNo
-//        for (int i = 0; i < orderObj.FileIOObj.orderV.size(); i++) {
-//            String tempNo = Integer.toString(orderObj.FileIOObj.orderV.elementAt(i).getOrderNo());
-//            if (tempNo.equals(No)) {
-//                this.txtCAdd2.setText(Integer.toString(orderObj.FileIOObj.orderV.elementAt(i).getMax()));
-//                this.txtCName2.setText(Integer.toString(orderObj.FileIOObj.orderV.elementAt(i).getMin()));
-//                this.txtName2.
-//                this.txtPackageTitle2.setText(orderObj.FileIOObj.orderV.elementAt(i).getTitle());
-//                this.txtRate2.setText(Double.toString(orderObj.FileIOObj.orderV.elementAt(i).getRate()));
-//                break;
-//            }
-//        }
+        
     }//GEN-LAST:event_cBoxOrderNoItemStateChanged
+
+    private void btnSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave2ActionPerformed
+        //SAVE EDITED RECORD COMPLETE 
+        try {
+            orderNo=Integer.parseInt(this.cBoxOrderNo.getSelectedItem().toString());
+            IC=Integer.parseInt(this.txtIC2.getText());
+            weight = Double.parseDouble(this.txtWeight2.getText());
+            name=this.txtName2.getText();
+            sName=this.txtSName2.getText();
+            sAdd=this.txtSAdd2.getText();
+            cName = this.txtCName2.getText();
+            cAdd=this.txtCAdd2.getText();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid Input Format, Field Cannot be Empty", "Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         
+        amount=((Double.parseDouble(this.txtWeight2.getText()))/100) * Double.parseDouble(this.txtRate2.getText()) ;
+        orderObj.EditOrder(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        JOptionPane.showMessageDialog(this, "Order Successful Edited!", "Information",JOptionPane.INFORMATION_MESSAGE);
+        ClearField();
+    }//GEN-LAST:event_btnSave2ActionPerformed
 
     /**
      * @param args the command line arguments
