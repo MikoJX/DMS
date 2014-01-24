@@ -7,40 +7,68 @@
 package Files;
 import java.io.*;
 import java.util.Vector;
-//import Classes.Customer;
-//import Classes.Package;
 import Classes.Order;
 /**
  *
  * @author Miko
  */
-public class OrderFileIO {
+public class OrderFileIO extends FileHandler{
     
-    public static Vector<Order> orderV=new Vector<Order>(); 
-//    public static void main(String[] args) {
+    public  Vector<Order> orderV=new Vector<Order>(); 
+//    public  void main(String[] args) {
 //        //SaveCust();
 //        //AddPackage(12,"tt","mm","zz",33);
 //        System.out.println(orderV.elementAt(0).PackageObj.getPackageNo());
 //    }
     
-    public static void AddOrder(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd){
-        FileCheck();
-        RetrieveOrder();
-        orderV.addElement(new Order(Amount, IC, OrderNo, Weight, custName,SName,SAdd,CName,CAdd)); 
-        SaveOrder();
+//    public  void AddOrder(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd){
+//        fileCheck();
+//        retrieveData();
+//        orderV.addElement(new Order(Amount, IC, OrderNo, Weight, custName,SName,SAdd,CName,CAdd)); 
+//        save();
+//    }
+//    
+//    public  void EditOrder(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd){
+//        retrieveData();
+//        for (int i = 0; i <orderV.size(); i++) {
+//            if (orderV.elementAt(i).getOrderNo()==OrderNo) {
+//                orderV.setElementAt(new Order(Amount, IC, OrderNo, Weight, custName,SName,SAdd,CName,CAdd), i);
+//            }  
+//        }
+//        save();
+//    }
+    
+     @Override
+     public void add(Object order){
+         if(order instanceof Order)
+            {
+                fileCheck();
+                retrieveData();
+                orderV.addElement((Order) order);
+                save();
+            }
+    }
+     
+    @Override
+    public void edit(Object order){
+          Order orders = new Order();
+          orders = (Order) order;
+         
+          if(order instanceof Order)
+            {
+                retrieveData();
+                for (int i = 0; i <orderV.size(); i++) {
+                    if (orders.getOrderNo() == orderV.elementAt(i).getOrderNo()) {
+                        orderV.setElementAt((Order) order, i);
+                    }                 
+                }
+                save();
+            }
     }
     
-    public static void EditOrder(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd){
-        RetrieveOrder();
-        for (int i = 0; i <orderV.size(); i++) {
-            if (orderV.elementAt(i).getOrderNo()==OrderNo) {
-                orderV.setElementAt(new Order(Amount, IC, OrderNo, Weight, custName,SName,SAdd,CName,CAdd), i);
-            }  
-        }
-        SaveOrder();
-    }
     
-    public static void RetrieveOrder(){
+    @Override
+    public void retrieveData(){
         if (orderV.isEmpty()==false) {orderV.removeAllElements();}
         
         //Retrieving Package Record
@@ -58,7 +86,8 @@ public class OrderFileIO {
         }
     }
     
-    public static void SaveOrder(){
+    @Override
+    public void save(){
         //FILE INPUT
         try {
             // create a new file with an ObjectOutputStream
@@ -77,7 +106,8 @@ public class OrderFileIO {
     
     }
     
-    public static void FileCheck(){
+    @Override
+    public void fileCheck(){
          try {
             FileInputStream fis = new FileInputStream("orderRecord.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);

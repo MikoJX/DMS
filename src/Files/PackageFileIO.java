@@ -8,17 +8,18 @@ package Files;
 import java.io.*;
 import java.util.Vector;
 import Classes.Package;
+
 /**
  *
  * @author Miko
  */
-public class PackageFileIO {
+public class PackageFileIO extends FileHandler {
     public static Vector<Package> packV=new Vector<Package>(); 
     
 //    public static void main(String[] args) {
 //               
 //        //packV.clear();
-//        RetrievePackage();
+//        retrieveData();
 //        
 //        //AddPackage(222,200,2,2.6,"Bla");
 ////        SavePackage();
@@ -28,24 +29,54 @@ public class PackageFileIO {
 //        //System.out.println(packV.elementAt(0).getMax());
 //    }
     
-    public static void AddPackage(int pno,int max,int min,double rate,String title){
-        FileCheck();
-        RetrievePackage();
-        packV.addElement(new Package(rate,title,pno,min,max)); 
-        SavePackage();
+//    public static void AddPackage(int pno,int max,int min,double rate,String title){
+//        FileCheck();
+//        retrieveData();
+//        packV.addElement(new Package(rate,title,pno,min,max)); 
+//        SavePackage();
+//    }
+    
+    @Override
+    public void add(Object pack){
+         if(pack instanceof Package)
+            {
+                fileCheck();
+                retrieveData();
+                packV.addElement((Package) pack);
+                save();
+            }
     }
     
-    public static void EditPackage(int pno,int max,int min,double rate,String title){
-        RetrievePackage();
-        for (int i = 0; i <packV.size(); i++) {
-            if (packV.elementAt(i).getPackageNo()==pno) {
-                packV.setElementAt(new Package(rate,title,pno,min,max), i);
-            }  
-        }
-        SavePackage();
+    @Override
+    public void edit(Object pack){
+        
+         Package packs = new Package();
+         packs = (Package) pack;
+         
+          if(pack instanceof Package)
+            {
+                retrieveData();
+                for (int i = 0; i <packV.size(); i++) {
+                    if (packs.getPackageNo() == packV.elementAt(i).getPackageNo()) {
+                        packV.setElementAt((Package) packs, i);
+                    } 
+                }
+                save();
+            }
     }
     
-    public static void RetrievePackage(){
+//    public static void EditPackage(int pno,int max,int min,double rate,String title){
+//        retrieveData();
+//        for (int i = 0; i <packV.size(); i++) {
+//            if (packV.elementAt(i).getPackageNo()==pno) {
+//                packV.setElementAt(new Package(rate,title,pno,min,max), i);
+//            }  
+//        }
+//        SavePackage();
+//    }
+    
+    @Override
+    public void retrieveData(){
         if (packV.isEmpty()==false) {packV.removeAllElements();}
            
          //Retrieving Package Record
@@ -61,7 +92,8 @@ public class PackageFileIO {
             }      
     }
     
-    public static void SavePackage(){    
+    @Override
+    public void save(){    
 
         try {
             // create a new file with an ObjectOutputStream
@@ -80,7 +112,8 @@ public class PackageFileIO {
          
     }
     
-    public static void FileCheck() {
+    @Override
+    public void fileCheck() {
         try {
             FileInputStream fis = new FileInputStream("packRecord.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);

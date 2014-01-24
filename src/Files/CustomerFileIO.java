@@ -8,37 +8,66 @@ package Files;
 import java.io.*;
 import java.util.Vector;
 import Classes.Customer;
-//import Classes.Package;
 /**
  *
  * @author Miko
  */
-public class CustomerFileIO {
-    public static Vector<Customer> custV=new Vector<Customer>(); 
+public class CustomerFileIO extends FileHandler{
+    public Vector<Customer> custV=new Vector<Customer>(); 
 //    public static void main(String[] args) {
 //        //SaveCust();
 //        //AddPackage(12,"tt","mm","zz",33);
 //        System.out.println(custV.elementAt(0).PackageObj.getPackageNo());
 //    }
     
-    public static void AddCust(int CIC, String CName, String SName, String SAdd, int Pno){
-        FileCheck();
-        RetrieveCust();
-        custV.addElement(new Customer(CIC,CName,SName,SAdd,Pno)); 
-        SaveCust();
-    }
-    
-    public static void EditCust(int CIC, String CName, String SName, String SAdd,int PNo){
-        RetrieveCust();
-        for (int i = 0; i <custV.size(); i++) {
-            if (custV.elementAt(i).getCustIC()==CIC) {
-                custV.setElementAt(new Customer(CIC,CName,SName,SAdd,PNo), i);
-            }  
+    @Override
+        public void add(Object customer){
+            if(customer instanceof Customer)
+            {
+                fileCheck();
+                retrieveData();
+                custV.addElement((Customer) customer);
+                save();
+            }
         }
-        SaveCust();
-    }
+
+      
+      
+//    @Override
+//      public void Add(){
+//        FileCheck();
+//        RetrieveData();
+//        custV.addElement(new Customer(CIC,CName,SName,SAdd,Pno)); 
+//        Save();
+//    }
+      @Override
+      public void edit(Object customer){
+          Customer cust = new Customer();
+          cust = (Customer) customer;
+         
+          if(customer instanceof Customer)
+            {
+                retrieveData();
+                for (int i = 0; i <custV.size(); i++) {
+                    if (cust.getCustIC() == custV.elementAt(i).getCustIC()) {
+                        custV.setElementAt((Customer) customer, i);
+                    } 
+                }
+                save();
+            }
+      }
+//    public void Edit(int CIC, String CName, String SName, String SAdd,int PNo){
+//        RetrieveData();
+//        for (int i = 0; i <custV.size(); i++) {
+//            if (custV.elementAt(i).getCustIC()==CIC) {
+//                custV.setElementAt(new Customer(CIC,CName,SName,SAdd,PNo), i);
+//            }  
+//        }
+//        Save();
+//    }
     
-    public static void RetrieveCust(){
+    @Override
+    public void retrieveData(){
         if (custV.isEmpty()==false) {custV.removeAllElements();}
         
         //Retrieving Package Record
@@ -56,7 +85,8 @@ public class CustomerFileIO {
         }
     }
     
-    public static void SaveCust(){
+    @Override
+    public void save(){
         //FILE INPUT
         try {
             // create a new file with an ObjectOutputStream
@@ -67,7 +97,6 @@ public class CustomerFileIO {
                 oos.writeObject(custV.elementAt(i));
             }
             oos.close();
-//            System.out.println(packV.elementAt(0).getTitle());
          
          } catch (Exception ex) {
             System.out.println("Invalid !");
@@ -75,7 +104,8 @@ public class CustomerFileIO {
     
     }
     
-    public static void FileCheck(){
+    @Override
+    public void fileCheck(){
          try {
             FileInputStream fis = new FileInputStream("custRecord.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -86,4 +116,10 @@ public class CustomerFileIO {
 //            obj.close();
         }
     }
+
+
+//    @Override
+//    public void Edit() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

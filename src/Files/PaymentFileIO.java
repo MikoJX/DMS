@@ -10,13 +10,30 @@ package Files;
  *
  * @author Miko
  */
-public class PaymentFileIO {
+public class PaymentFileIO extends FileHandler{
     
-    public void RetrievePayment(){
+    @Override
+    public void add(Object payment){
     
     }
     
-    public void SavePayment(){
+    @Override
+    public void edit(Object payment){
+    
+    }
+    
+    @Override
+    public void retrieveData(){
+    
+    }
+    
+    @Override
+    public void save(){
+    
+    }
+    
+    @Override
+    public void fileCheck() {
     
     }
 }

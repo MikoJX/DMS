@@ -5,6 +5,7 @@
  */
 //PACKAGE MANAGEMENT COMPLETE
 package GUI;
+import Classes.Package;
 import Files.PackageFileIO;
 import javax.swing.JOptionPane;
 /**
@@ -18,10 +19,10 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
     String title;
     int pNo,max,min;
     
-    private void AutoGenerator(){
+    private void autoGenerator(){
         String newPno,listPno;
         
-        packObj.RetrievePackage();
+        packObj.retrieveData();
         if(packObj.packV.size()==0){
             this.txtPackageNo.setText("111");
         }
@@ -44,7 +45,7 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
         }
     }
     
-    private void ClearField(){
+    private void clearField(){
         this.txtMax.setText("");
         this.txtMax2.setText("");
         this.txtMin.setText("");
@@ -464,7 +465,7 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportActionPerformed
 
     private void btnPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPackageActionPerformed
-        AutoGenerator(); 
+        autoGenerator(); 
     }//GEN-LAST:event_btnPackageActionPerformed
 
     private void txtPackageTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPackageTitleActionPerformed
@@ -491,12 +492,12 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        packObj.AddPackage(pNo, max, min, rate, title);
-        JOptionPane.showMessageDialog(this, "Package Successful Added!", "Information",
-                    JOptionPane.INFORMATION_MESSAGE);
-        AutoGenerator();
-        ClearField();
+        
+        Package packs = new Package(rate, title,pNo, max, min);
+        packObj.add(packs);
+        JOptionPane.showMessageDialog(this, "Package Successful Added!", "Information",JOptionPane.INFORMATION_MESSAGE);
+        autoGenerator();
+        clearField();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void cboxPackageNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPackageNoActionPerformed
@@ -511,20 +512,18 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
             min=Integer.parseInt(this.txtMin2.getText());
             rate=Double.parseDouble(this.txtRate2.getText());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Invalid Input", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid Input", "Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        
-        packObj.EditPackage(pNo, max, min, rate, title);
+        Package packs = new Package(rate, title,pNo, max, min);
+        packObj.edit(packs);
         //packObj.FileIOObj.RetrievePackage();
         //System.out.println(packObj.FileIOObj.packV.elementAt(0).getPackageNo());
-        JOptionPane.showMessageDialog(this, "Package Record Successful Edited!", "Information",
-                    JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Package Record Successful Edited!", "Information",JOptionPane.INFORMATION_MESSAGE);
         
-        AutoGenerator();
-        ClearField();
+        autoGenerator();
+        clearField();
         this.btnSave2.setEnabled(false);
     }//GEN-LAST:event_btnSave2ActionPerformed
 

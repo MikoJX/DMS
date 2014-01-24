@@ -5,6 +5,7 @@
  */
 
 package GUI;
+
 import Classes.Order;
 import Files.OrderFileIO;
 import Files.CustomerFileIO;
@@ -24,10 +25,10 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     int pno,IC,orderNo;
     String sName,sAdd,name,cName,cAdd;
     
-    private void AutoGenerator(){
+    private void autoGenerator(){
         String newPno;
         
-        orderObj.RetrieveOrder();
+        orderObj.retrieveData();
         if(orderObj.orderV.size()==0){
             this.txtOrderNo.setText("111");
         }
@@ -37,7 +38,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
     }
     
-    private void ClearField(){
+    private void clearField(){
         //Done
         this.txtCAdd.setText("");
         this.txtCAdd2.setText("");
@@ -657,7 +658,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeliveryActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        AutoGenerator();
+        autoGenerator();
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
@@ -691,8 +692,8 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         //Customer Record SEARCH DONE
         boolean recordCheck=false;
         String listCIC;
-        custObj.RetrieveCust();
-        packObj.RetrievePackage();
+        custObj.retrieveData();
+        packObj.retrieveData();
         for (int i = 0; i < custObj.custV.size(); i++) {
              listCIC=Integer.toString(custObj.custV.elementAt(i).getCustIC());
              if ((this.rbtnPackaga.isSelected()==true) && listCIC.equals(this.txtIC.getText())) {
@@ -712,7 +713,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             }
         } 
             if (recordCheck==false) {
-                ClearField();
+                clearField();
                 JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -734,15 +735,16 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
          
         amount=((Double.parseDouble(this.txtWeight.getText()))/100) * Double.parseDouble(this.txtRate.getText()) ;
-        orderObj.AddOrder(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        orderObj.add(order);
         JOptionPane.showMessageDialog(this, "Order Successful Added!", "Information",JOptionPane.INFORMATION_MESSAGE);
-        ClearField();
+        clearField();
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
         //SEARCH ORDER COMPLETE
-        orderObj.RetrieveOrder();
+        orderObj.retrieveData();
         boolean recordCheck=false;
         String listCIC,listOno;
         
@@ -767,18 +769,18 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             }
         }
         
-        if (recordCheck==false ) {
-            ClearField();
+        if (recordCheck) {
+            this.cBoxOrderNo.removeItemAt(0);
+            this.btnSave2.setEnabled(true);
+        }
+        else {
+            clearField();
             this.txtRate2.setText("5.0");
             this.cBoxOrderNo.addItem("-");
                  for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
                     this.cBoxOrderNo.removeItemAt(0); }
             JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
             this.btnSave2.setEnabled(false);
-        }
-        else {
-            this.cBoxOrderNo.removeItemAt(0);
-            this.btnSave2.setEnabled(true);
         }
     }//GEN-LAST:event_btnSearch2ActionPerformed
 
@@ -825,9 +827,13 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
          
         amount=((Double.parseDouble(this.txtWeight2.getText()))/100) * Double.parseDouble(this.txtRate2.getText()) ;
-        orderObj.EditOrder(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        orderObj.edit(order);
         JOptionPane.showMessageDialog(this, "Order Successful Edited!", "Information",JOptionPane.INFORMATION_MESSAGE);
-        ClearField();
+        clearField();
+//        this.cBoxOrderNo.removeAllItems();
+//        this.cBoxOrderNo.addItem("-");
+        
     }//GEN-LAST:event_btnSave2ActionPerformed
 
     /**

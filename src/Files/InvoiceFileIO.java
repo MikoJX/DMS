@@ -10,13 +10,30 @@ package Files;
  *
  * @author Miko
  */
-public class InvoiceFileIO {
+public class InvoiceFileIO extends FileHandler{
     
-    public void RetrieveCust(){
+    @Override
+    public void add(Object payment){
     
     }
     
-    public void SaveInvoice(){
+    @Override
+    public void edit(Object payment){
+    
+    }
+    
+    @Override
+    public void retrieveData(){
+    
+    }
+    
+    @Override
+    public void save(){
+    
+    }
+    
+    @Override
+    public void fileCheck() {
     
     }
 }

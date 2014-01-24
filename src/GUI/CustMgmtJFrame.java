@@ -6,6 +6,7 @@
 //CUSTOMER MANAGEMENT COMPLETE
 
 package GUI;
+import Classes.Customer;
 import Files.CustomerFileIO;
 import Files.PackageFileIO;
 import javax.swing.JOptionPane;
@@ -522,7 +523,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         //DONE
         String listPno;
-        packObj.RetrievePackage();
+        packObj.retrieveData();
        
         int size = this.cBoxPackageNo.getItemCount();
         //Remove ComboBox Item
@@ -600,7 +601,8 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        custObj.AddCust(IC,name,sName,sAdd,pNo);
+        Customer customer = new Customer(IC,name,sName,sAdd,pNo);
+        custObj.add(customer);
         JOptionPane.showMessageDialog(this, "Customer Successful Added!", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
         ClearField();
@@ -636,11 +638,17 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
             return;
         }
         
-        custObj.EditCust(IC,name,sName,sAdd,pNo);
-        JOptionPane.showMessageDialog(this, "Customer Record Successful Edited!", "Information",
-                    JOptionPane.INFORMATION_MESSAGE);
+        Customer customer = new Customer(IC,name,sName,sAdd,pNo);
+        custObj.edit(customer); 
+        JOptionPane.showMessageDialog(this, "Customer Record Successful Edited!", "Information",JOptionPane.INFORMATION_MESSAGE);
+   
         
         
+//        this.cBoxPackageNo2.addItem("-");
+//        for (int i = 0; i < this.cBoxPackageNo2.getItemCount(); i++) {
+//            this.cBoxPackageNo2.removeItemAt(0);
+//            
+//        }
         ClearField();
         this.btnSave2.setEnabled(false); 
         this.txtName2.setEnabled(false);
@@ -667,7 +675,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         boolean recordCheck=false;
         String listCIC;
-        custObj.RetrieveCust();
+        custObj.retrieveData();
         for (int i = 0; i < custObj.custV.size(); i++) {
              listCIC=Integer.toString(custObj.custV.elementAt(i).getCustIC());
              if (listCIC.equals(this.txtIC2.getText())) {
@@ -683,6 +691,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
             }
         } 
             if (recordCheck) {
+                
                 this.btnSave2.setEnabled(true);
             }else {
                 ClearField();
@@ -690,8 +699,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                 this.txtName2.setEnabled(false);
                 this.txtSAdd2.setEnabled(false);
                 this.txtSName2.setEnabled(false);
-                JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btnSearchActionPerformed
     
