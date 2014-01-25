@@ -12,7 +12,7 @@ package Classes;
  */
 public class Order implements java.io.Serializable{
     private double Amount,Weight;
-    public Customer CustObj=new Customer();
+    public Customer custObj=new Customer();
     private int OrderNo;
     private String OStatus,CName,CAdd;
 
@@ -25,17 +25,17 @@ public class Order implements java.io.Serializable{
         this.CAdd = "empty";
     }
     
-    public Order(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd) {
+    public Order(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd,String oStatus) {
         this.Amount = Amount;
         this.OrderNo = OrderNo;
         this.Weight = Weight;
-        this.OStatus = "pending";
+        this.OStatus = oStatus;
         this.CName = CName;
         this.CAdd = CAdd;
-        this.CustObj.setCustIC(IC);
-        this.CustObj.setCustName(custName);
-        this.CustObj.setShipperName(SName);
-        this.CustObj.setShipperAdd(SAdd); 
+        this.custObj.setCustIC(IC);
+        this.custObj.setCustName(custName);
+        this.custObj.setShipperName(SName);
+        this.custObj.setShipperAdd(SAdd); 
     }
     
     public double getAmount() {

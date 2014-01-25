@@ -5,15 +5,27 @@
  */
 
 package GUI;
+import Classes.Invoice;
+import Classes.Order;
 import Files.OrderFileIO;
+import Files.InvoiceFileIO;
 import javax.swing.JOptionPane;
 /**
  *
  * @author Miko
  */
 public class PaymentMgmtJFrame extends javax.swing.JFrame {
+    
     OrderFileIO orderObj = new OrderFileIO();
-    int IC,orderNo;
+    InvoiceFileIO invObj = new InvoiceFileIO();
+    int invNo,orderNo,IC;
+    double weight,amount;
+    String name,sName,sAdd,cName,cAdd;
+            
+    public void clearField(){
+        this.txtIC.setText("");
+        this.txtOrderDetail.setText("");
+    }
     /**
      * Creates new form PaymentMgmtJFrame
      */
@@ -47,7 +59,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         btnGenerate = new javax.swing.JButton();
         cBoxOrderNo = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtOrderDetail = new javax.swing.JTextArea();
         lblPIC3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblDeliveryHeader2 = new javax.swing.JLabel();
@@ -135,10 +147,21 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         });
 
         cBoxOrderNo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        cBoxOrderNo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cBoxOrderNoItemStateChanged(evt);
+            }
+        });
+        cBoxOrderNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cBoxOrderNoActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtOrderDetail.setColumns(20);
+        txtOrderDetail.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        txtOrderDetail.setRows(5);
+        jScrollPane1.setViewportView(txtOrderDetail);
 
         lblPIC3.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
         lblPIC3.setText("Order Details ");
@@ -413,79 +436,86 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         boolean recordCheck=false;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-            tempIC= Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
-            oNoStatus = orderObj.orderV.elementAt(i).getOStatus();
-            
-            if ((tempIC.equals(this.txtIC.getText()))&& oNoStatus.equals(oNoStatus) ) {
+            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
+            oNoStatus = orderObj.orderV.elementAt(i).getOStatus().toString();
+            if ((tempIC.equals(this.txtIC.getText()))&& (oNoStatus.equals("pending")) ) {
+                for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
+                    this.cBoxOrderNo.removeItemAt(1);
+                }
                 recordCheck = true;
                 break;
             }
+            else {recordCheck =false;}
         }
         
         if (recordCheck) {
-            this.cBoxOrderNo.removeAllItems();
             for (int i = 0; i < orderObj.orderV.size(); i++) {
                 oNoStatus = orderObj.orderV.elementAt(i).getOStatus();
-                tempIC= Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
+                tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
                 listONo=Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
                 
                 if ((tempIC.equals(this.txtIC.getText()))&& oNoStatus.equals(oNoStatus) ) {
                     this.cBoxOrderNo.addItem(listONo);
                 }
             }
+            this.cBoxOrderNo.removeItemAt(0);
             this.btnGenerate.setEnabled(true);
         }
         else {
-            this.cBoxOrderNo.removeAllItems();
             this.cBoxOrderNo.addItem("-");
+            for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
+                    this.cBoxOrderNo.removeItemAt(0); }
             JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
             this.btnGenerate.setEnabled(false);
+            clearField();
         }
-            
-       
-//        String listCIC,listOno;
-//        
-//        for (int i = 0; i < orderObj.orderV.size(); i++) {
-//             listCIC=Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
-//             
-//             if (listCIC.equals(this.txtIC2.getText())) {
-//                 for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
-//                    this.cBoxOrderNo.removeItemAt(1);
-//                }
-//                recordCheck=true;
-//                break;
-//            }
-//             else {recordCheck=false;}           
-//        }
-//        
-//        for (int i = 0; i < orderObj.orderV.size(); i++) {
-//             listCIC=Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
-//             if (listCIC.equals(this.txtIC2.getText())) {
-//                listOno=Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
-//                this.cBoxOrderNo.addItem(listOno);
-//            }
-//        }
-//        
-//        if (recordCheck==false ) {
-//            ClearField();
-//            this.txtRate2.setText("5.0");
-//            this.cBoxOrderNo.addItem("-");
-//                 for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
-//                    this.cBoxOrderNo.removeItemAt(0); }
-//            
-//            this.btnSave2.setEnabled(false);
-//        }
-//        else {
-//            this.cBoxOrderNo.removeItemAt(0);
-//            this.btnSave2.setEnabled(true);
-//        }
-        
-        
     }//GEN-LAST:event_btnPSearchActionPerformed
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
-        // TODO add your handling code here:
+        invNo =Integer.parseInt(this.cBoxOrderNo.getSelectedItem().toString()); 
+//        System.out.println(invNo);
+        Invoice invoice = new Invoice(invNo,invNo,"pending");
+        //System.out.println(invoice.getinvoiceNo());
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"done");
+        orderObj.edit(order);
+        invObj.add(invoice);
+        JOptionPane.showMessageDialog(this, "Invoice Successful Generated!", "Information",JOptionPane.INFORMATION_MESSAGE);
+        clearField();
     }//GEN-LAST:event_btnGenerateActionPerformed
+
+    private void cBoxOrderNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxOrderNoActionPerformed
+       
+    }//GEN-LAST:event_cBoxOrderNoActionPerformed
+
+    private void cBoxOrderNoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cBoxOrderNoItemStateChanged
+        
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+            double rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
+            orderNo=orderObj.orderV.elementAt(i).getOrderNo();
+            IC=orderObj.orderV.elementAt(i).custObj.getCustIC();
+            weight = orderObj.orderV.elementAt(i).getWeight();
+            name=orderObj.orderV.elementAt(i).custObj.getCustName();
+            sName=orderObj.orderV.elementAt(i).custObj.getShipperName();
+            sAdd=orderObj.orderV.elementAt(i).custObj.getShipperAdd();
+            cName = orderObj.orderV.elementAt(i).getCName();
+            cAdd=orderObj.orderV.elementAt(i).getCAdd();
+            amount = orderObj.orderV.elementAt(i).getAmount();
+            
+            if ( ((this.cBoxOrderNo.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getOrderNo()) ))) {
+                this.txtOrderDetail.setText("Order No : "+ orderNo+
+                                           "\nName       : "+ name+ 
+                                           "\nIC             : "+ IC +
+                                           "\n=========================Shipping Details===========================" +
+                                           "\nShipper Name           : " + sName+
+                                           "\nShipper Address      : " + sAdd+
+                                           "\nConsignee Name      : " + cName+
+                                           "\nConsignee Address : " + cAdd+
+                                           "\n\nWeight : "+ weight + "kg"+
+                                           "\nRate : "+ (Double.toString(Math.round(rate*100.0)/100.0)) + "/100 gram"+
+                                           "\nAmount : "+ amount);     
+            }
+        }
+    }//GEN-LAST:event_cBoxOrderNoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -544,7 +574,6 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCustomerHeader3;
     private javax.swing.JLabel lblDeliveryHeader1;
@@ -557,6 +586,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblPMsg1;
     private javax.swing.JTable tblPayment1;
     private javax.swing.JTextField txtIC;
+    private javax.swing.JTextArea txtOrderDetail;
     private javax.swing.JTextField txtPIC1;
     // End of variables declaration//GEN-END:variables
 }

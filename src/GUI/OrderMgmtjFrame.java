@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class OrderMgmtjFrame extends javax.swing.JFrame {
     OrderFileIO orderObj = new OrderFileIO();
-    CustomerFileIO custObj = new CustomerFileIO();
+    CustomerFileIO custObjs = new CustomerFileIO();
     PackageFileIO packObj = new PackageFileIO();
     
     double amount,weight,rate;
@@ -692,15 +692,15 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         //Customer Record SEARCH DONE
         boolean recordCheck=false;
         String listCIC;
-        custObj.retrieveData();
+        custObjs.retrieveData();
         packObj.retrieveData();
-        for (int i = 0; i < custObj.custV.size(); i++) {
-             listCIC=Integer.toString(custObj.custV.elementAt(i).getCustIC());
+        for (int i = 0; i < custObjs.custV.size(); i++) {
+             listCIC=Integer.toString(custObjs.custV.elementAt(i).getCustIC());
              if ((this.rbtnPackaga.isSelected()==true) && listCIC.equals(this.txtIC.getText())) {
-                this.txtName.setText(custObj.custV.elementAt(i).getCustName());
-                this.txtSName.setText(custObj.custV.elementAt(i).getShipperName());
-                this.txtSAdd.setText(custObj.custV.elementAt(i).getShipperAdd());
-                pno=custObj.custV.elementAt(i).PackageObj.getPackageNo();
+                this.txtName.setText(custObjs.custV.elementAt(i).getCustName());
+                this.txtSName.setText(custObjs.custV.elementAt(i).getShipperName());
+                this.txtSAdd.setText(custObjs.custV.elementAt(i).getShipperAdd());
+                pno=custObjs.custV.elementAt(i).PackageObj.getPackageNo();
                 
                  for (int j = 0; j < packObj.packV.size(); j++) {
                      int pnoList = packObj.packV.elementAt(j).getPackageNo();
@@ -734,8 +734,8 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             return;
         }
          
-        amount=((Double.parseDouble(this.txtWeight.getText()))/100) * Double.parseDouble(this.txtRate.getText()) ;
-        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        amount=((Double.parseDouble(this.txtWeight.getText()))*100) * Double.parseDouble(this.txtRate.getText()) ;
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"pending");
         orderObj.add(order);
         JOptionPane.showMessageDialog(this, "Order Successful Added!", "Information",JOptionPane.INFORMATION_MESSAGE);
         clearField();
@@ -749,7 +749,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         String listCIC,listOno;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
+             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
              
              if (listCIC.equals(this.txtIC2.getText())) {
                  for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
@@ -762,7 +762,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.orderV.elementAt(i).CustObj.getCustIC());
+             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
              if (listCIC.equals(this.txtIC2.getText())) {
                 listOno=Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
                 this.cBoxOrderNo.addItem(listOno);
@@ -792,14 +792,14 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             for (int i = 0; i <orderObj.orderV.size() ; i++) {
                 String tempNo = Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
                 if (tempNo.equals(No)){
-                    rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()/100);
+                    rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
 
                     this.txtRate2.setText(Double.toString(Math.round(rate*100.0)/100.0));
                     this.txtCName2.setText(orderObj.orderV.elementAt(i).getCName());
                     this.txtCAdd2.setText(orderObj.orderV.elementAt(i).getCAdd());
-                    this.txtName2.setText(orderObj.orderV.elementAt(i).CustObj.getCustName());
-                    this.txtSName2.setText(orderObj.orderV.elementAt(i).CustObj.getShipperName());
-                    this.txtSAdd2.setText(orderObj.orderV.elementAt(i).CustObj.getShipperAdd());
+                    this.txtName2.setText(orderObj.orderV.elementAt(i).custObj.getCustName());
+                    this.txtSName2.setText(orderObj.orderV.elementAt(i).custObj.getShipperName());
+                    this.txtSAdd2.setText(orderObj.orderV.elementAt(i).custObj.getShipperAdd());
                     this.txtWeight2.setText(Double.toString(orderObj.orderV.elementAt(i).getWeight()));
                 }
             }
@@ -826,8 +826,8 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             return;
         }
          
-        amount=((Double.parseDouble(this.txtWeight2.getText()))/100) * Double.parseDouble(this.txtRate2.getText()) ;
-        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd);
+        amount=((Double.parseDouble(this.txtWeight2.getText()))*100) * Double.parseDouble(this.txtRate2.getText()) ;
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"pending");
         orderObj.edit(order);
         JOptionPane.showMessageDialog(this, "Order Successful Edited!", "Information",JOptionPane.INFORMATION_MESSAGE);
         clearField();
