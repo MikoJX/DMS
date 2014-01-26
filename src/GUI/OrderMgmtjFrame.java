@@ -73,13 +73,6 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         PackageTypeGroup = new javax.swing.ButtonGroup();
-        btnPackage = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
-        btnPayment = new javax.swing.JButton();
-        btnDelivery = new javax.swing.JButton();
-        btnOrder = new javax.swing.JButton();
-        btnCustomer = new javax.swing.JButton();
         lblCustomerHeader3 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -138,54 +131,8 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         txtRate2 = new javax.swing.JTextField();
         cBoxOrderNo = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        lblIdentity = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnPackage.setText("Package Management");
-        btnPackage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPackageActionPerformed(evt);
-            }
-        });
-
-        btnReport.setText("Report Management");
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportActionPerformed(evt);
-            }
-        });
-
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        btnPayment.setText("Payment Management");
-        btnPayment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPaymentActionPerformed(evt);
-            }
-        });
-
-        btnDelivery.setText("Delivery Management");
-        btnDelivery.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeliveryActionPerformed(evt);
-            }
-        });
-
-        btnOrder.setText("Order Management");
-        btnOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrderActionPerformed(evt);
-            }
-        });
-
-        btnCustomer.setText("Customer Management");
-        btnCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCustomerActionPerformed(evt);
-            }
-        });
 
         lblCustomerHeader3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
         lblCustomerHeader3.setText("Delivery Management System(DMS)");
@@ -274,7 +221,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel11)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(txtCName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -491,7 +438,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                                 .addComponent(txtIC2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSearch2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblOrderList)
                             .addComponent(cBoxOrderNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -571,33 +518,12 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Edit Order Record", jPanel2);
 
-        jLabel4.setText("Welcome !");
-
-        lblIdentity.setText("jLabel2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDelivery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblIdentity)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -608,63 +534,16 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator3)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(lblIdentity))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCustomer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOrder)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelivery)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPayment)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPackage)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblCustomerHeader3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))))
+                .addComponent(lblCustomerHeader3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPackageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPackageActionPerformed
-
-    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportActionPerformed
-
-    private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
-        this.setVisible(false);
-        new PaymentMgmtJFrame().setVisible(true);
-    }//GEN-LAST:event_btnPaymentActionPerformed
-
-    private void btnDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryActionPerformed
-        this.setVisible(false);
-        new DeliveryMgmtJFrame().setVisible(true);
-    }//GEN-LAST:event_btnDeliveryActionPerformed
-
-    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        autoGenerator();
-    }//GEN-LAST:event_btnOrderActionPerformed
-
-    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
-        this.setVisible(false);
-        new CustMgmtJFrame().setVisible(true);
-    }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void rbtnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNormalActionPerformed
         btnSearch.setVisible(false);
@@ -740,6 +619,16 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Order Successful Added!", "Information",JOptionPane.INFORMATION_MESSAGE);
         clearField();
         
+        String newOno;
+        orderObj.retrieveData();
+        if(orderObj.orderV.size()==0){
+            OrderMgmtjFrame.txtOrderNo.setText("111");
+        }
+        else {
+           newOno=Integer.toString((orderObj.orderV.lastElement().getOrderNo())+1);
+           OrderMgmtjFrame.txtOrderNo.setText(newOno.toString());
+        }
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
@@ -793,7 +682,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                 String tempNo = Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
                 if (tempNo.equals(No)){
                     rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
-                    System.out.println(orderObj.orderV.elementAt(i).getOStatus());
+                    //System.out.println(orderObj.orderV.elementAt(i).getOStatus());
                     this.txtRate2.setText(Double.toString(Math.round(rate*100.0)/100.0));
                     this.txtCName2.setText(orderObj.orderV.elementAt(i).getCName());
                     this.txtCAdd2.setText(orderObj.orderV.elementAt(i).getCAdd());
@@ -873,12 +762,6 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup PackageTypeGroup;
-    private javax.swing.JButton btnCustomer;
-    private javax.swing.JButton btnDelivery;
-    private javax.swing.JButton btnOrder;
-    private javax.swing.JButton btnPackage;
-    private javax.swing.JButton btnPayment;
-    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSave2;
     private javax.swing.JButton btnSearch;
@@ -900,7 +783,6 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -911,10 +793,8 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblCustomerHeader3;
-    public static javax.swing.JLabel lblIdentity;
     private javax.swing.JLabel lblOrderHeader;
     private javax.swing.JLabel lblOrderHeader1;
     private javax.swing.JLabel lblOrderList;
@@ -931,7 +811,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtIC2;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtName2;
-    private javax.swing.JTextField txtOrderNo;
+    public static javax.swing.JTextField txtOrderNo;
     private javax.swing.JTextField txtRate;
     private javax.swing.JTextField txtRate2;
     private javax.swing.JTextArea txtSAdd;
