@@ -7,8 +7,10 @@
 package GUI;
 import Classes.Invoice;
 import Classes.Order;
+import Classes.Payment;
 import Files.OrderFileIO;
 import Files.InvoiceFileIO;
+import Files.PaymentFileIO;
 import javax.swing.JOptionPane;
 /**
  *
@@ -18,13 +20,16 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     
     OrderFileIO orderObj = new OrderFileIO();
     InvoiceFileIO invObj = new InvoiceFileIO();
-    int invNo,orderNo,IC;
+    PaymentFileIO payObj = new PaymentFileIO();
+    int invNo,payNo,orderNo,IC;
     double weight,amount;
     String name,sName,sAdd,cName,cAdd;
             
     public void clearField(){
         this.txtIC.setText("");
+        this.txtIC2.setText("");
         this.txtOrderDetail.setText("");
+        this.txtOrderDetail2.setText("");
     }
     /**
      * Creates new form PaymentMgmtJFrame
@@ -54,7 +59,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         lblDeliveryHeader1 = new javax.swing.JLabel();
         lblPIC = new javax.swing.JLabel();
         txtIC = new javax.swing.JTextField();
-        btnPSearch = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         lblPIC1 = new javax.swing.JLabel();
         btnGenerate = new javax.swing.JButton();
         cBoxOrderNo = new javax.swing.JComboBox();
@@ -63,17 +68,16 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         lblPIC3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblDeliveryHeader2 = new javax.swing.JLabel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        tblPayment1 = new javax.swing.JTable();
-        btnOSave = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        btnPay = new javax.swing.JButton();
         lblPIC2 = new javax.swing.JLabel();
-        txtPIC1 = new javax.swing.JTextField();
-        btnPSearch1 = new javax.swing.JButton();
-        lblPMsg1 = new javax.swing.JLabel();
+        txtIC2 = new javax.swing.JTextField();
+        btnSearch2 = new javax.swing.JButton();
+        lblPIC4 = new javax.swing.JLabel();
+        cBoxOrderNo2 = new javax.swing.JComboBox();
+        lblPIC5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtOrderDetail2 = new javax.swing.JTextArea();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
         lblCustomerHeader3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblIdentity = new javax.swing.JLabel();
@@ -129,10 +133,10 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
 
         lblPIC.setText("IC : ");
 
-        btnPSearch.setText("Search");
-        btnPSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPSearchActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -181,7 +185,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnPSearch))
+                                .addComponent(btnSearch))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblPIC1)
                                 .addGap(18, 18, 18)
@@ -193,7 +197,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
+                        .addGap(236, 236, 236)
                         .addComponent(lblPIC3)))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
@@ -206,7 +210,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPIC)
                     .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPSearch))
+                    .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPIC1)
@@ -223,44 +227,46 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Invoice", jPanel1);
 
         lblDeliveryHeader2.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
-        lblDeliveryHeader2.setText("Payment");
+        lblDeliveryHeader2.setText("Made Payment");
 
-        tblPayment1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Order No", "Shipper Name", "Consignee Name", "Weight", "Amount", "Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btnPay.setText("Payment");
+        btnPay.setEnabled(false);
+        btnPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayActionPerformed(evt);
             }
         });
-        jScrollPane9.setViewportView(tblPayment1);
-
-        btnOSave.setText("Save");
-
-        jLabel1.setText("Order No : ");
-
-        jTextField1.setText("jTextField1");
-
-        jLabel2.setText("Payment");
-
-        jRadioButton1.setText("Paid");
 
         lblPIC2.setText("IC : ");
 
-        btnPSearch1.setText("Search");
+        btnSearch2.setText("Search");
+        btnSearch2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearch2ActionPerformed(evt);
+            }
+        });
 
-        lblPMsg1.setText("lblPMsg");
+        lblPIC4.setText("Order No :");
+
+        cBoxOrderNo2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        cBoxOrderNo2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cBoxOrderNo2ItemStateChanged(evt);
+            }
+        });
+        cBoxOrderNo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cBoxOrderNo2ActionPerformed(evt);
+            }
+        });
+
+        lblPIC5.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
+        lblPIC5.setText("Order Details ");
+
+        txtOrderDetail2.setColumns(20);
+        txtOrderDetail2.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        txtOrderDetail2.setRows(5);
+        jScrollPane2.setViewportView(txtOrderDetail2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -269,37 +275,29 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(248, 248, 248)
-                                .addComponent(btnOSave))
+                                .addComponent(lblPIC2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIC2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch2))
+                            .addComponent(lblDeliveryHeader2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblPIC2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtPIC1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnPSearch1))
-                                    .addComponent(lblPMsg1)
-                                    .addComponent(lblDeliveryHeader2))))
-                        .addGap(0, 306, Short.MAX_VALUE))
+                                .addComponent(lblPIC4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cBoxOrderNo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jRadioButton1))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                        .addGap(254, 254, 254)
+                        .addComponent(btnPay))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(lblPIC5)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,28 +305,25 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(lblDeliveryHeader2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPMsg1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPIC2)
-                    .addComponent(txtPIC1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPSearch1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPIC4)
+                    .addComponent(cBoxOrderNo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(lblPIC5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jRadioButton1))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnOSave)
-                .addGap(55, 55, 55))
+                .addComponent(btnPay)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Payment", jPanel2);
+        jTabbedPane1.addTab("Made Payment", jPanel2);
+        jTabbedPane1.addTab("View Payment ", jTabbedPane2);
 
         lblCustomerHeader3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
         lblCustomerHeader3.setText("Delivery Management System(DMS)");
@@ -430,7 +425,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPackageActionPerformed
 
-    private void btnPSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPSearchActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         orderObj.retrieveData();
         String listONo,tempIC,oNoStatus;
         boolean recordCheck=false;
@@ -454,8 +449,9 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                 tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
                 listONo=Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
                 
-                if ((tempIC.equals(this.txtIC.getText()))&& oNoStatus.equals(oNoStatus) ) {
+                if ((tempIC.equals(this.txtIC.getText()))&& oNoStatus.equals("pending") ) {
                     this.cBoxOrderNo.addItem(listONo);
+//                    System.out.println(oNoStatus);
                 }
             }
             this.cBoxOrderNo.removeItemAt(0);
@@ -469,18 +465,23 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
             this.btnGenerate.setEnabled(false);
             clearField();
         }
-    }//GEN-LAST:event_btnPSearchActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
+        //COMPLETE
         invNo =Integer.parseInt(this.cBoxOrderNo.getSelectedItem().toString()); 
-//        System.out.println(invNo);
         Invoice invoice = new Invoice(invNo,invNo,"pending");
-        //System.out.println(invoice.getinvoiceNo());
         Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"done");
         orderObj.edit(order);
         invObj.add(invoice);
+        
         JOptionPane.showMessageDialog(this, "Invoice Successful Generated!", "Information",JOptionPane.INFORMATION_MESSAGE);
         clearField();
+        this.btnGenerate.setEnabled(false);
+        this.cBoxOrderNo.addItem("-");
+        for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
+                    this.cBoxOrderNo.removeItemAt(0); }
+        
     }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void cBoxOrderNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxOrderNoActionPerformed
@@ -488,20 +489,21 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cBoxOrderNoActionPerformed
 
     private void cBoxOrderNoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cBoxOrderNoItemStateChanged
-        
+        //COMPLETE
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-            double rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
-            orderNo=orderObj.orderV.elementAt(i).getOrderNo();
-            IC=orderObj.orderV.elementAt(i).custObj.getCustIC();
-            weight = orderObj.orderV.elementAt(i).getWeight();
-            name=orderObj.orderV.elementAt(i).custObj.getCustName();
-            sName=orderObj.orderV.elementAt(i).custObj.getShipperName();
-            sAdd=orderObj.orderV.elementAt(i).custObj.getShipperAdd();
-            cName = orderObj.orderV.elementAt(i).getCName();
-            cAdd=orderObj.orderV.elementAt(i).getCAdd();
-            amount = orderObj.orderV.elementAt(i).getAmount();
             
             if ( ((this.cBoxOrderNo.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getOrderNo()) ))) {
+                double rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
+                orderNo=orderObj.orderV.elementAt(i).getOrderNo();
+                IC=orderObj.orderV.elementAt(i).custObj.getCustIC();
+                weight = orderObj.orderV.elementAt(i).getWeight();
+                name=orderObj.orderV.elementAt(i).custObj.getCustName();
+                sName=orderObj.orderV.elementAt(i).custObj.getShipperName();
+                sAdd=orderObj.orderV.elementAt(i).custObj.getShipperAdd();
+                cName = orderObj.orderV.elementAt(i).getCName();
+                cAdd=orderObj.orderV.elementAt(i).getCAdd();
+                amount = orderObj.orderV.elementAt(i).getAmount();
+                 
                 this.txtOrderDetail.setText("Order No : "+ orderNo+
                                            "\nName       : "+ name+ 
                                            "\nIC             : "+ IC +
@@ -517,10 +519,111 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cBoxOrderNoItemStateChanged
 
+    private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
+        //COMPLETE
+        orderObj.retrieveData();
+        invObj.retrieveData();
+        
+        String tempIC,oNoStatus,invStatus;
+        boolean recordCheck=false;
+        
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
+            oNoStatus = orderObj.orderV.elementAt(i).getOStatus().toString();
+  
+            
+            if ((tempIC.equals(this.txtIC2.getText()))&& (oNoStatus.equals("done")) ) {
+              
+                for (int j = 0; j < invObj.invoiceV.size(); j++) {
+                    
+                    invStatus = invObj.invoiceV.elementAt(j).getInvStatus();
+//                    System.out.println(orderObj.orderV.elementAt(i).getOrderNo());
+//                    System.out.println(invObj.invoiceV.elementAt(j).orderObj.getOrderNo());
+                    System.out.println(invStatus);
+                    if ((orderObj.orderV.elementAt(i).getOrderNo())== invObj.invoiceV.elementAt(j).orderObj.getOrderNo()
+                            && (invStatus.equals("pending"))) {
+                        this.cBoxOrderNo2.addItem(orderObj.orderV.elementAt(i).getOrderNo());
+                        recordCheck=true;
+                    }
+                }
+            }
+        }
+        
+        if (recordCheck) {            
+            this.cBoxOrderNo2.removeItemAt(0);
+            this.btnPay.setEnabled(true);
+
+        }else {
+            this.cBoxOrderNo2.addItem("-");
+            for (int j = 0; j < (this.cBoxOrderNo2.getItemCount()); j++) { 
+                    this.cBoxOrderNo2.removeItemAt(0); }
+            JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
+            this.btnPay.setEnabled(false);
+            clearField();
+        }
+    }//GEN-LAST:event_btnSearch2ActionPerformed
+
+    private void cBoxOrderNo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cBoxOrderNo2ItemStateChanged
+        //COMPLETE 
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+            
+            if ( ((this.cBoxOrderNo2.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getOrderNo()) ))) {
+                double rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
+                orderNo=orderObj.orderV.elementAt(i).getOrderNo();
+                IC=orderObj.orderV.elementAt(i).custObj.getCustIC();
+                weight = orderObj.orderV.elementAt(i).getWeight();
+                name=orderObj.orderV.elementAt(i).custObj.getCustName();
+                sName=orderObj.orderV.elementAt(i).custObj.getShipperName();
+                sAdd=orderObj.orderV.elementAt(i).custObj.getShipperAdd();
+                cName = orderObj.orderV.elementAt(i).getCName();
+                cAdd=orderObj.orderV.elementAt(i).getCAdd();
+                amount = orderObj.orderV.elementAt(i).getAmount();
+                
+                this.txtOrderDetail2.setText("Order No : "+ orderNo+
+                                           "\nName       : "+ name+ 
+                                           "\nIC             : "+ IC +
+                                           "\n=========================Shipping Details===========================" +
+                                           "\nShipper Name           : " + sName+
+                                           "\nShipper Address      : " + sAdd+
+                                           "\nConsignee Name      : " + cName+
+                                           "\nConsignee Address : " + cAdd+
+                                           "\n\nWeight : "+ weight + "kg"+
+                                           "\nRate : "+ (Double.toString(Math.round(rate*100.0)/100.0)) + "/100 gram"+
+                                           "\nAmount : "+ amount);     
+            }
+        }
+    }//GEN-LAST:event_cBoxOrderNo2ItemStateChanged
+
+    private void cBoxOrderNo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxOrderNo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cBoxOrderNo2ActionPerformed
+
+    private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
+        //COMPLETE
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        String dialogContent = "Payment Confirm ? \nOrder No : "+ this.cBoxOrderNo2.getSelectedItem().toString();
+        int dialogResult = JOptionPane.showConfirmDialog(this, dialogContent, "Payment Confirmation",dialogButton);
+        
+        if (dialogResult==0) {
+            payNo =Integer.parseInt(this.cBoxOrderNo2.getSelectedItem().toString()); 
+            Invoice invoice = new Invoice(invNo,invNo,"done");
+            Payment payment = new Payment(payNo,"paid",payNo);
+            invObj.edit(invoice);
+            payObj.add(payment);
+            clearField();
+            JOptionPane.showMessageDialog(this, "Payment made ", "Information",JOptionPane.INFORMATION_MESSAGE);
+            this.btnPay.setEnabled(false);
+            this.cBoxOrderNo2.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo2.getItemCount()); i++) { 
+                        this.cBoxOrderNo2.removeItemAt(0); }
+        }        
+    }//GEN-LAST:event_btnPayActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -556,25 +659,23 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnDelivery;
     private javax.swing.JButton btnGenerate;
-    private javax.swing.JButton btnOSave;
     private javax.swing.JButton btnOrder;
-    private javax.swing.JButton btnPSearch;
-    private javax.swing.JButton btnPSearch1;
     private javax.swing.JButton btnPackage;
+    private javax.swing.JButton btnPay;
     private javax.swing.JButton btnPayment;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearch2;
     private javax.swing.JComboBox cBoxOrderNo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox cBoxOrderNo2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel lblCustomerHeader3;
     private javax.swing.JLabel lblDeliveryHeader1;
     private javax.swing.JLabel lblDeliveryHeader2;
@@ -583,10 +684,11 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblPIC1;
     private javax.swing.JLabel lblPIC2;
     private javax.swing.JLabel lblPIC3;
-    private javax.swing.JLabel lblPMsg1;
-    private javax.swing.JTable tblPayment1;
+    private javax.swing.JLabel lblPIC4;
+    private javax.swing.JLabel lblPIC5;
     private javax.swing.JTextField txtIC;
+    private javax.swing.JTextField txtIC2;
     private javax.swing.JTextArea txtOrderDetail;
-    private javax.swing.JTextField txtPIC1;
+    private javax.swing.JTextArea txtOrderDetail2;
     // End of variables declaration//GEN-END:variables
 }

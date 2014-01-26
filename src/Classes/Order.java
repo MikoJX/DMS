@@ -20,7 +20,7 @@ public class Order implements java.io.Serializable{
         this.Amount = 0;
         this.OrderNo = 0;
         this.Weight = 0;
-        this.OStatus = "pending";
+        this.OStatus = "empty";
         this.CName = "empty";
         this.CAdd = "empty";
     }

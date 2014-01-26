@@ -10,6 +10,10 @@ import Classes.Customer;
 import Files.CustomerFileIO;
 import Files.PackageFileIO;
 import javax.swing.JOptionPane;
+
+import javax.swing.JFrame;
+//import javax.swing.JLabel;
+
 /**
  *
  * @author Miko
@@ -542,8 +546,10 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        this.setVisible(false);
-        new OrderMgmtjFrame().setVisible(true);
+        //this.setVisible(false);
+        JFrame oFrame = new OrderMgmtjFrame();
+        oFrame.setVisible(true);
+        oFrame.setAlwaysOnTop( true );
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryActionPerformed

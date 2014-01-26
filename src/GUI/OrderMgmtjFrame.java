@@ -793,7 +793,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
                 String tempNo = Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
                 if (tempNo.equals(No)){
                     rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
-
+                    System.out.println(orderObj.orderV.elementAt(i).getOStatus());
                     this.txtRate2.setText(Double.toString(Math.round(rate*100.0)/100.0));
                     this.txtCName2.setText(orderObj.orderV.elementAt(i).getCName());
                     this.txtCAdd2.setText(orderObj.orderV.elementAt(i).getCAdd());

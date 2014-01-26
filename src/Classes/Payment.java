@@ -11,24 +11,35 @@ package Classes;
  * @author Miko
  */
 public class Payment {
-    private int PaymentNo;
-    private String PaymentStatus;
-    protected Invoice InvoiceObj;
+    private int payNo;
+    private String payStatus;
+    public Invoice InvoiceObj = new Invoice();
 
-    public int getPaymentNo() {
-        return PaymentNo;
+    public Payment(){
+        this.payNo=0;
+        this.payStatus="empty";
+    }
+    
+    public Payment(int payNo,String payStatus,int invNo){
+        this.payNo=payNo;
+        this.payStatus=payStatus;
+        this.InvoiceObj.setinvoiceNo(invNo);
+    }
+    
+    public int getpayNo() {
+        return payNo;
     }
 
-    public void setPaymentNo(int PaymentNo) {
-        this.PaymentNo = PaymentNo;
+    public void setpayNo(int payNo) {
+        this.payNo = payNo;
     }
 
-    public String getPaymentStatus() {
-        return PaymentStatus;
+    public String getpayStatus() {
+        return payStatus;
     }
 
-    public void setPaymentStatus(String PaymentStatus) {
-        this.PaymentStatus = PaymentStatus;
+    public void setpayStatus(String payStatus) {
+        this.payStatus = payStatus;
     }
     
 }

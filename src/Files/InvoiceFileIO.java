@@ -15,21 +15,35 @@ import java.util.Vector;
  */
 public class InvoiceFileIO extends FileHandler{
     
-     public  Vector<Invoice> invoiceV=new Vector<Invoice>(); 
+    public  Vector<Invoice> invoiceV=new Vector<Invoice>(); 
     
     @Override
-    public void add(Object invoice){
-         if(invoice instanceof Invoice)
+    public void add(Object invoices){
+         if(invoices instanceof Invoice)
             {
                 fileCheck();
                 retrieveData();
-                invoiceV.addElement((Invoice) invoice);
+                invoiceV.addElement((Invoice) invoices);
                 save();
             }
     }
     
     @Override
-    public void edit(Object payment){}
+    public void edit(Object invoice){
+         Invoice invoices = new Invoice();
+          invoices = (Invoice) invoice;
+         
+          if(invoice instanceof Invoice)
+            {
+                retrieveData();
+                for (int i = 0; i <invoiceV.size(); i++) {
+                    if (invoices.getinvoiceNo() == invoiceV.elementAt(i).getinvoiceNo()) {
+                        invoiceV.setElementAt((Invoice) invoice, i);
+                    }                 
+                }
+                save();
+            }
+    }
     
     @Override
     public void retrieveData(){
