@@ -166,6 +166,19 @@ public class MainJFrame extends javax.swing.JFrame {
         cFrame.setVisible(true);
         cFrame.setAlwaysOnTop( true );
         cFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        String newPno;
+        packObj.retrieveData();
+        if(packObj.packV.size()!=0){
+            //CustMgmtJFrame.txtPackageNo.setText("111");
+            //CustMgmtJFrame.cboxPackageNo.addItem
+           newPno=Integer.toString((packObj.packV.lastElement().getPackageNo())+1);
+           
+           for (int i = 0; i < packObj.packV.size(); i++) {
+               CustMgmtJFrame.cBoxPackageNo.addItem(packObj.packV.elementAt(i).getPackageNo());
+               CustMgmtJFrame.cBoxPackageNo2.addItem(packObj.packV.elementAt(i).getPackageNo());
+            }
+        }        
     }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
@@ -223,8 +236,7 @@ public class MainJFrame extends javax.swing.JFrame {
         packObj.retrieveData();
         if(packObj.packV.size()==0){
             PackageMgmtJFrame.txtPackageNo.setText("111");
-            PackageMgmtJFrame.cboxPackageNo.addItem("-");
-            
+            //PackageMgmtJFrame.cboxPackageNo.addItem("-");
         }
         else {
            newPno=Integer.toString((packObj.packV.lastElement().getPackageNo())+1);

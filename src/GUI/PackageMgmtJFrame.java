@@ -407,7 +407,14 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSave2ActionPerformed
 
     private void cboxPackageNoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxPackageNoItemStateChanged
-        this.btnSave2.setEnabled(true); //set Save button Enable 
+        //CHANGES Done cboxPackageNo=="-" , then clearField, disable btnSave2
+        
+        if (this.cboxPackageNo.getSelectedIndex()==0) {
+            this.btnSave2.setEnabled(false); //set Save button Enable 
+            clearField();
+        }
+        else {
+            this.btnSave2.setEnabled(true); //set Save button Enable 
         
         String No=this.cboxPackageNo.getSelectedItem().toString();
         
@@ -423,6 +430,7 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
             }
         }
         
+        }
     }//GEN-LAST:event_cboxPackageNoItemStateChanged
 
     /**

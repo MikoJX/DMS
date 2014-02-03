@@ -26,7 +26,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     int IC,pNo;
     String name,sName,sAdd;
     
-    private void ClearField(){
+    private void clearField(){
         this.txtIC.setText("");
         this.txtIC2.setText("");
         this.txtName.setText("");
@@ -77,7 +77,6 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         txtRate = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         txtMax = new javax.swing.JTextField();
         txtMin = new javax.swing.JTextField();
@@ -149,8 +148,6 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel24.setText("jLabel11");
-
         jLabel31.setText("Max:");
 
         txtMax.setEnabled(false);
@@ -187,10 +184,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel24))
+                            .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -221,9 +215,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel24)))
+                    .addComponent(txtIC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,10 +446,12 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMin2ActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        //CHANGES DONE IC set as UNIQUE Key 
+        boolean nameCheck=false;
+        int tempIC;
         try {
             IC=Integer.parseInt(this.txtIC.getText());
             pNo=Integer.parseInt(this.cBoxPackageNo.getSelectedItem().toString());
-            System.out.println(pNo);
             name=this.txtName.getText();
             sName=this.txtSName.getText();
             sAdd=this.txtSAdd.getText();
@@ -466,27 +460,50 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Customer customer = new Customer(IC,name,sName,sAdd,pNo);
-        custObj.add(customer);
-        JOptionPane.showMessageDialog(this, "Customer Successful Added!", "Information",
-                    JOptionPane.INFORMATION_MESSAGE);
-        ClearField();
-    }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void cBoxPackageNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxPackageNoActionPerformed
-        //DONE
-        String No=this.cBoxPackageNo.getSelectedItem().toString();
-        
-        //display all record according to packageNo
-        for (int i = 0; i < packObj.packV.size(); i++) {
-            String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
-            if (tempNo.equals(No)) {
-                this.txtMax.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
-                this.txtMin.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
-                this.txtRate.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
+        custObj.retrieveData();
+        for (int i = 0; i < custObj.custV.size(); i++) {
+            tempIC=custObj.custV.elementAt(i).getCustIC();
+            if (tempIC==IC) {
+                nameCheck=true;
                 break;
             }
         }
+        
+        if (nameCheck) {
+            JOptionPane.showMessageDialog(this, "IC number existing", "Duplicate IC",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            Customer customer = new Customer(IC,name,sName,sAdd,pNo);
+            custObj.add(customer);
+            JOptionPane.showMessageDialog(this, "Customer Successful Added!", "Information",
+                        JOptionPane.INFORMATION_MESSAGE);
+            clearField();
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void cBoxPackageNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxPackageNoActionPerformed
+        //CHANGES DONE AutoPassing cBoxPackageNo, if cBoxPackageNo == 0 ,then empty package detail
+        if (this.cBoxPackageNo.getSelectedIndex()==0) {
+            this.txtRate.setText("");
+            this.txtMax.setText("");
+            this.txtMin.setText("");
+        }
+        else {
+            String No=this.cBoxPackageNo.getSelectedItem().toString();
+        
+            //display all record according to packageNo
+            for (int i = 0; i < packObj.packV.size(); i++) {
+                String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
+                if (tempNo.equals(No)) {
+                    this.txtMax.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
+                    this.txtMin.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
+                    this.txtRate.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
+                    break;
+                }
+            }
+        }
+        
     }//GEN-LAST:event_cBoxPackageNoActionPerformed
 
     private void btnSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave2ActionPerformed
@@ -514,7 +531,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
 //            this.cBoxPackageNo2.removeItemAt(0);
 //            
 //        }
-        ClearField();
+        clearField();
         this.btnSave2.setEnabled(false); 
         this.txtName2.setEnabled(false);
         this.txtSAdd2.setEnabled(false);
@@ -523,18 +540,25 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSave2ActionPerformed
 
     private void cBoxPackageNo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxPackageNo2ActionPerformed
-         String No=this.cBoxPackageNo2.getSelectedItem().toString();
-        
-        //display all record according to packageNo
-        for (int i = 0; i < packObj.packV.size(); i++) {
-            String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
-            if (tempNo.equals(No)) {
-                this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
-                this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
-                this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
-                break;
-            }
+        if (this.cBoxPackageNo2.getSelectedIndex()==0) {
+            this.txtRate2.setText("");
+            this.txtMax2.setText("");
+            this.txtMin2.setText("");
         }
+        else {
+            String No=this.cBoxPackageNo2.getSelectedItem().toString();
+        
+            //display all record according to packageNo
+            for (int i = 0; i < packObj.packV.size(); i++) {
+                String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
+                if (tempNo.equals(No)) {
+                    this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
+                    this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
+                    this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
+                    break;
+                }
+            }
+        } 
     }//GEN-LAST:event_cBoxPackageNo2ActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -547,7 +571,8 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                 this.txtName2.setText(custObj.custV.elementAt(i).getCustName());
                 this.txtSName2.setText(custObj.custV.elementAt(i).getShipperName());
                 this.txtSAdd2.setText(custObj.custV.elementAt(i).getShipperAdd());
-                this.cBoxPackageNo2.setSelectedItem(Integer.toString(custObj.custV.elementAt(i).PackageObj.getPackageNo()));
+                System.out.println(custObj.custV.elementAt(i).PackageObj.getPackageNo());
+                this.cBoxPackageNo2.setSelectedItem(custObj.custV.elementAt(i).PackageObj.getPackageNo());
                 this.txtName2.setEnabled(true);
                 this.txtSAdd2.setEnabled(true);
                 this.txtSName2.setEnabled(true);
@@ -559,7 +584,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                 
                 this.btnSave2.setEnabled(true);
             }else {
-                ClearField();
+                clearField();
                 this.btnSave2.setEnabled(false);
                 this.txtName2.setEnabled(false);
                 this.txtSAdd2.setEnabled(false);
@@ -607,15 +632,14 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSave2;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox cBoxPackageNo;
-    private javax.swing.JComboBox cBoxPackageNo2;
+    public static javax.swing.JComboBox cBoxPackageNo;
+    public static javax.swing.JComboBox cBoxPackageNo2;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
