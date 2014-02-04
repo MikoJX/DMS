@@ -6,6 +6,11 @@
 
 package GUI;
 
+import Files.CustomerFileIO;
+import Files.OrderFileIO;
+import Files.PackageFileIO;
+import java.util.Formatter;
+
 /**
  *
  * @author Miko
@@ -32,10 +37,10 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblOrderHeader = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        btnOSave = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        btnGenerate = new javax.swing.JButton();
+        cboxReport = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtReport = new javax.swing.JTextArea();
         lblCustomerHeader3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,21 +50,26 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Record to Generate : ");
 
-        btnOSave.setText("Save");
+        btnGenerate.setText("Generate");
+        btnGenerate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Registered Customer", "Total Oder", "Total Sales" }));
+        cboxReport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Registered Customer", "Total Order", "Total Sales" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtReport.setColumns(20);
+        txtReport.setRows(5);
+        jScrollPane1.setViewportView(txtReport);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(294, Short.MAX_VALUE)
-                .addComponent(btnOSave)
+                .addContainerGap(274, Short.MAX_VALUE)
+                .addComponent(btnGenerate)
                 .addGap(264, 264, 264))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
@@ -68,7 +78,7 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cboxReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblOrderHeader))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -80,11 +90,11 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboxReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnOSave)
+                .addComponent(btnGenerate)
                 .addGap(26, 26, 26))
         );
 
@@ -119,6 +129,77 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
+        OrderFileIO orderObj = new OrderFileIO();
+        PackageFileIO packObj = new PackageFileIO();
+        CustomerFileIO custObj=new CustomerFileIO();
+        
+        String temp ="";
+        double sales=0;
+        int index = this.cboxReport.getSelectedIndex();
+        
+        switch (index) {
+            case 0:
+                custObj.retrieveData();
+                if (custObj.custV.size()==0) {
+                     this.txtReport.setText("No Record Found!");
+                }
+                else {
+                    for (int i = 0; i < custObj.custV.size(); i++) {
+                        temp += Integer.toString(custObj.custV.elementAt(i).getCustIC())+ "\t" +
+                                custObj.custV.elementAt(i).getCustName()+ "\n";
+                    }
+                    this.txtReport.setText("Total Registered Customer : "+ custObj.custV.size() + "\n" +
+                                           "Customer IC \t" + "Customer Name \n"+
+                                           temp);
+                }
+                
+                break;
+            case 1:
+                orderObj.retrieveData();
+                if (orderObj.orderV.size()==0) {
+                    this.txtReport.setText("No Record Found!");
+                }
+                else {
+                    for (int i = 0; i < orderObj.orderV.size(); i++) {
+                        sales += orderObj.orderV.elementAt(i).getAmount();
+                        temp += Integer.toString(orderObj.orderV.elementAt(i).getOrderNo())+"\t" + 
+                                orderObj.orderV.elementAt(i).custObj.getCustIC()+"\n";
+                    }
+                
+                    this.txtReport.setText("Total Order : "+ orderObj.orderV.size() + "\n" +
+                                           "Total Sales : RM "+sales + "\n" +
+                                           "Order No  \t " + "Customer IC \n"+
+                                           temp);
+                }
+                
+                break;
+            case 2:
+                orderObj.retrieveData();
+                if (orderObj.orderV.size()==0) {
+                    this.txtReport.setText("No Record Found!");
+                }
+                else {
+                    for (int i = 0; i < orderObj.orderV.size(); i++) {
+                        temp += Integer.toString(orderObj.orderV.elementAt(i).getOrderNo())+"\t" + 
+                                orderObj.orderV.elementAt(i).custObj.getCustIC()+"\n";
+                    }
+                
+                    this.txtReport.setText("Total Order : "+ orderObj.orderV.size() + "\n" +
+                                           "Order No  \t " + "Customer IC \n"+
+                                           temp);
+                }
+                
+                break;
+            
+            case 3:
+                
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }//GEN-LAST:event_btnGenerateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,14 +237,14 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnOSave;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton btnGenerate;
+    private javax.swing.JComboBox cboxReport;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblCustomerHeader3;
     private javax.swing.JLabel lblOrderHeader;
+    private javax.swing.JTextArea txtReport;
     // End of variables declaration//GEN-END:variables
 }

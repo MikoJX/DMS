@@ -67,8 +67,8 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="294" max="32767" attributes="0"/>
-                      <Component id="btnOSave" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="274" max="32767" attributes="0"/>
+                      <Component id="btnGenerate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -78,7 +78,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                              <Component id="cboxReport" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lblOrderHeader" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -94,12 +94,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboxReport" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="252" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnOSave" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGenerate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -119,17 +119,20 @@
                 <Property name="text" type="java.lang.String" value="Record to Generate : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnOSave">
+            <Component class="javax.swing.JButton" name="btnGenerate">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Save"/>
+                <Property name="text" type="java.lang.String" value="Generate"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerateActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="cboxReport">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
                     <StringItem index="0" value="Total Registered Customer"/>
-                    <StringItem index="1" value="Total Oder"/>
+                    <StringItem index="1" value="Total Order"/>
                     <StringItem index="2" value="Total Sales"/>
                   </StringArray>
                 </Property>
@@ -142,7 +145,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea1">
+                <Component class="javax.swing.JTextArea" name="txtReport">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
