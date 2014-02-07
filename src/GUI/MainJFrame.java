@@ -172,11 +172,11 @@ public class MainJFrame extends javax.swing.JFrame {
         if(packObj.packV.size()!=0){
             //CustMgmtJFrame.txtPackageNo.setText("111");
             //CustMgmtJFrame.cboxPackageNo.addItem
-           newPno=Integer.toString((packObj.packV.lastElement().getPackageNo())+1);
+           newPno=Integer.toString((packObj.packV.lastElement().getpackageNo())+1);
            
            for (int i = 0; i < packObj.packV.size(); i++) {
-               CustMgmtJFrame.cBoxPackageNo.addItem(packObj.packV.elementAt(i).getPackageNo());
-               CustMgmtJFrame.cBoxPackageNo2.addItem(packObj.packV.elementAt(i).getPackageNo());
+               CustMgmtJFrame.cBoxPackageNo.addItem(packObj.packV.elementAt(i).getpackageNo());
+               CustMgmtJFrame.cBoxPackageNo2.addItem(packObj.packV.elementAt(i).getpackageNo());
             }
         }        
     }//GEN-LAST:event_btnCustomerActionPerformed
@@ -195,7 +195,7 @@ public class MainJFrame extends javax.swing.JFrame {
             OrderMgmtjFrame.txtOrderNo.setText("111");
         }
         else {
-           newOno=Integer.toString((orderObj.orderV.lastElement().getOrderNo())+1);
+           newOno=Integer.toString((orderObj.orderV.lastElement().getorderNo())+1);
            OrderMgmtjFrame.txtOrderNo.setText(newOno.toString());
         }
     }//GEN-LAST:event_btnOrderActionPerformed
@@ -239,11 +239,11 @@ public class MainJFrame extends javax.swing.JFrame {
             //PackageMgmtJFrame.cboxPackageNo.addItem("-");
         }
         else {
-           newPno=Integer.toString((packObj.packV.lastElement().getPackageNo())+1);
+           newPno=Integer.toString((packObj.packV.lastElement().getpackageNo())+1);
            PackageMgmtJFrame.txtPackageNo.setText(newPno.toString());
            
            for (int i = 0; i < packObj.packV.size(); i++) {
-               PackageMgmtJFrame.cboxPackageNo.addItem(packObj.packV.elementAt(i).getPackageNo());
+               PackageMgmtJFrame.cboxPackageNo.addItem(packObj.packV.elementAt(i).getpackageNo());
             }
         }        
     }//GEN-LAST:event_btnPackageActionPerformed
@@ -287,7 +287,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnDelivery;
     private javax.swing.JButton btnOrder;
-    private javax.swing.JButton btnPackage;
+    public static javax.swing.JButton btnPackage;
     private javax.swing.JButton btnPayment;
     public static javax.swing.JButton btnReport;
     private javax.swing.JLabel jLabel2;

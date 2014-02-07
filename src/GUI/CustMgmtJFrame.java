@@ -462,7 +462,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         }
         custObj.retrieveData();
         for (int i = 0; i < custObj.custV.size(); i++) {
-            tempIC=custObj.custV.elementAt(i).getCustIC();
+            tempIC=custObj.custV.elementAt(i).getcustIC();
             if (tempIC==IC) {
                 nameCheck=true;
                 break;
@@ -494,11 +494,11 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         
             //display all record according to packageNo
             for (int i = 0; i < packObj.packV.size(); i++) {
-                String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
+                String tempNo = Integer.toString(packObj.packV.elementAt(i).getpackageNo());
                 if (tempNo.equals(No)) {
-                    this.txtMax.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
-                    this.txtMin.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
-                    this.txtRate.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
+                    this.txtMax.setText(Integer.toString(packObj.packV.elementAt(i).getmax()));
+                    this.txtMin.setText(Integer.toString(packObj.packV.elementAt(i).getmin()));
+                    this.txtRate.setText(Double.toString(packObj.packV.elementAt(i).getrate()));
                     break;
                 }
             }
@@ -550,11 +550,11 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         
             //display all record according to packageNo
             for (int i = 0; i < packObj.packV.size(); i++) {
-                String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
+                String tempNo = Integer.toString(packObj.packV.elementAt(i).getpackageNo());
                 if (tempNo.equals(No)) {
-                    this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
-                    this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
-                    this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
+                    this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getmax()));
+                    this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getmin()));
+                    this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getrate()));
                     break;
                 }
             }
@@ -566,13 +566,13 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         String listCIC;
         custObj.retrieveData();
         for (int i = 0; i < custObj.custV.size(); i++) {
-             listCIC=Integer.toString(custObj.custV.elementAt(i).getCustIC());
+             listCIC=Integer.toString(custObj.custV.elementAt(i).getcustIC());
              if (listCIC.equals(this.txtIC2.getText())) {
-                this.txtName2.setText(custObj.custV.elementAt(i).getCustName());
-                this.txtSName2.setText(custObj.custV.elementAt(i).getShipperName());
-                this.txtSAdd2.setText(custObj.custV.elementAt(i).getShipperAdd());
-                System.out.println(custObj.custV.elementAt(i).PackageObj.getPackageNo());
-                this.cBoxPackageNo2.setSelectedItem(custObj.custV.elementAt(i).PackageObj.getPackageNo());
+                this.txtName2.setText(custObj.custV.elementAt(i).getcustName());
+                this.txtSName2.setText(custObj.custV.elementAt(i).getshipperName());
+                this.txtSAdd2.setText(custObj.custV.elementAt(i).getshipperAdd());
+                System.out.println(custObj.custV.elementAt(i).packageObj.getpackageNo());
+                this.cBoxPackageNo2.setSelectedItem(custObj.custV.elementAt(i).packageObj.getpackageNo());
                 this.txtName2.setEnabled(true);
                 this.txtSAdd2.setEnabled(true);
                 this.txtSName2.setEnabled(true);

@@ -27,7 +27,7 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
             this.txtPackageNo.setText("111");
         }
         else {
-           newPno=Integer.toString((packObj.packV.lastElement().getPackageNo())+1);
+           newPno=Integer.toString((packObj.packV.lastElement().getpackageNo())+1);
            this.txtPackageNo.setText(newPno.toString());
 
            int size = this.cboxPackageNo.getItemCount();
@@ -39,7 +39,7 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
             }
            //Add ComboBox Item   
            for (int i = 0; i < packObj.packV.size(); i++) {
-                listPno=Integer.toString(packObj.packV.elementAt(i).getPackageNo());
+                listPno=Integer.toString(packObj.packV.elementAt(i).getpackageNo());
                 this.cboxPackageNo.addItem(listPno);
             }
         }
@@ -420,12 +420,12 @@ public class PackageMgmtJFrame extends javax.swing.JFrame {
         
         //display all record according to packageNo
         for (int i = 0; i < packObj.packV.size(); i++) {
-            String tempNo = Integer.toString(packObj.packV.elementAt(i).getPackageNo());
+            String tempNo = Integer.toString(packObj.packV.elementAt(i).getpackageNo());
             if (tempNo.equals(No)) {
-                this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getMax()));
-                this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getMin()));
-                this.txtPackageTitle2.setText(packObj.packV.elementAt(i).getTitle());
-                this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getRate()));
+                this.txtMax2.setText(Integer.toString(packObj.packV.elementAt(i).getmax()));
+                this.txtMin2.setText(Integer.toString(packObj.packV.elementAt(i).getmin()));
+                this.txtPackageTitle2.setText(packObj.packV.elementAt(i).gettitle());
+                this.txtRate2.setText(Double.toString(packObj.packV.elementAt(i).getrate()));
                 break;
             }
         }

@@ -57,7 +57,7 @@ public class PackageFileIO extends FileHandler {
             {
                 retrieveData();
                 for (int i = 0; i <packV.size(); i++) {
-                    if (packs.getPackageNo() == packV.elementAt(i).getPackageNo()) {
+                    if (packs.getpackageNo() == packV.elementAt(i).getpackageNo()) {
                         packV.setElementAt((Package) packs, i);
                     } 
                 }

@@ -49,7 +49,7 @@ public class CustomerFileIO extends FileHandler{
             {
                 retrieveData();
                 for (int i = 0; i <custV.size(); i++) {
-                    if (cust.getCustIC() == custV.elementAt(i).getCustIC()) {
+                    if (cust.getcustIC() == custV.elementAt(i).getcustIC()) {
                         custV.setElementAt((Customer) customer, i);
                     } 
                 }

@@ -7,6 +7,7 @@
 package GUI;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -107,22 +108,32 @@ public class LoginJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-//        if ((txtUsername.getText().equals("user"))&& (txtPassword.getText().equals("user"))) {
-////            lblText.setText("user");
-////            CustMgmtJFrame custFrame=new CustMgmtJFrame();
-////            CustMgmtJFrame.lblIdentity.setText(this.lblText.getText());
-////            CustMgmtJFrame.btnReport.setVisible(false);
-////            this.setVisible(false);
-////            custFrame.setVisible(true);
-//        } else {
-//        }
+        String user,pass;
+        user= this.txtUsername.getText();
+        pass=this.txtPassword.getText();
         
-//        JFrame oFrame = new MainJFrame();
-//        oFrame.setVisible(true);
-//        oFrame.setAlwaysOnTop( true );
-//        
-//        
-//        oFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        if ((user.equals("admin"))&& (pass.equals("admin"))) {
+            MainJFrame adminFrame = new MainJFrame();
+            adminFrame.setVisible(true);
+            this.setVisible(false);
+        } 
+        else if((user.equals("manager"))&& (pass.equals("manager"))) {
+            MainJFrame managerFrame = new MainJFrame();
+            managerFrame.setVisible(true);
+            MainJFrame.btnPackage.setVisible(false);
+            this.setVisible(false);
+        }
+        else if((user.equals("staff"))&& (pass.equals("staff"))){
+            MainJFrame managerFrame = new MainJFrame();
+            managerFrame.setVisible(true);
+            MainJFrame.btnPackage.setVisible(false);
+            MainJFrame.btnReport.setVisible(false);
+            this.setVisible(false);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Error",
+                    JOptionPane.ERROR_MESSAGE);        
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**

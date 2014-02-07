@@ -11,79 +11,79 @@ package Classes;
  * @author Miko
  */
 public class Order implements java.io.Serializable{
-    private double Amount,Weight;
+    private double amount,weight;
     public Customer custObj=new Customer();
-    private int OrderNo;
-    private String OStatus,CName,CAdd;
+    private int orderNo;
+    private String oStatus,cName,cAdd;
 
     public Order(){
-        this.Amount = 0;
-        this.OrderNo = 0;
-        this.Weight = 0;
-        this.OStatus = "empty";
-        this.CName = "empty";
-        this.CAdd = "empty";
+        this.amount = 0;
+        this.orderNo = 0;
+        this.weight = 0;
+        this.oStatus = "empty";
+        this.cName = "empty";
+        this.cAdd = "empty";
     }
     
-    public Order(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd,String oStatus) {
-        this.Amount = Amount;
-        this.OrderNo = OrderNo;
-        this.Weight = Weight;
-        this.OStatus = oStatus;
-        this.CName = CName;
-        this.CAdd = CAdd;
-        this.custObj.setCustIC(IC);
-        this.custObj.setCustName(custName);
-        this.custObj.setShipperName(SName);
-        this.custObj.setShipperAdd(SAdd); 
+    public Order(double amount, int IC, int orderNo, double weight, String custName,String SName,String SAdd,String cName, String cAdd,String oStatus) {
+        this.amount = amount;
+        this.orderNo = orderNo;
+        this.weight = weight;
+        this.oStatus = oStatus;
+        this.cName = cName;
+        this.cAdd = cAdd;
+        this.custObj.setcustIC(IC);
+        this.custObj.setcustName(custName);
+        this.custObj.setshipperName(SName);
+        this.custObj.setshipperAdd(SAdd); 
     }
     
-    public double getAmount() {
-        return Amount;
+    public double getamount() {
+        return amount;
     }
 
-    public void setAmount(float Amount) {
-        this.Amount = Amount;
+    public void setamount(float amount) {
+        this.amount = amount;
     }
 
-    public int getOrderNo() {
-        return OrderNo;
+    public int getorderNo() {
+        return orderNo;
     }
 
-    public void setOrderNo(int OrderNo) {
-        this.OrderNo = OrderNo;
+    public void setorderNo(int orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public double getWeight() {
-        return Weight;
+    public double getweight() {
+        return weight;
     }
 
-    public void setWeight(int Weight) {
-        this.Weight = Weight;
+    public void setweight(int weight) {
+        this.weight = weight;
     }
 
-    public String getOStatus() {
-        return OStatus;
+    public String getoStatus() {
+        return oStatus;
     }
 
-    public void setOrderStatus(String OStatus) {
-        this.OStatus = OStatus;
+    public void setOrderStatus(String oStatus) {
+        this.oStatus = oStatus;
     }
 
-    public String getCName() {
-        return CName;
+    public String getcName() {
+        return cName;
     }
 
-    public void setCame(String CName) {
-        this.CName = CName;
+    public void setCame(String cName) {
+        this.cName = cName;
     }
 
-    public String getCAdd() {
-        return CAdd;
+    public String getcAdd() {
+        return cAdd;
     }
 
-    public void setCAdd(String CAdd) {
-        this.CAdd = CAdd;
+    public void setcAdd(String cAdd) {
+        this.cAdd = cAdd;
     }
     
     

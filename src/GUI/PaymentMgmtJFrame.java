@@ -307,8 +307,8 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         boolean recordCheck=false;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
-            oNoStatus = orderObj.orderV.elementAt(i).getOStatus().toString();
+            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+            oNoStatus = orderObj.orderV.elementAt(i).getoStatus().toString();
             if ((tempIC.equals(this.txtIC.getText()))&& (oNoStatus.equals("pending")) ) {
                 for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
                     this.cBoxOrderNo.removeItemAt(1);
@@ -321,9 +321,9 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         
         if (recordCheck) {
             for (int i = 0; i < orderObj.orderV.size(); i++) {
-                oNoStatus = orderObj.orderV.elementAt(i).getOStatus();
-                tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
-                listONo=Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
+                oNoStatus = orderObj.orderV.elementAt(i).getoStatus();
+                tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+                listONo=Integer.toString(orderObj.orderV.elementAt(i).getorderNo());
                 
                 if ((tempIC.equals(this.txtIC.getText()))&& oNoStatus.equals("pending") ) {
                     this.cBoxOrderNo.addItem(listONo);
@@ -368,17 +368,17 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         //COMPLETE
         for (int i = 0; i < orderObj.orderV.size(); i++) {
             
-            if ( ((this.cBoxOrderNo.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getOrderNo()) ))) {
-                double rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
-                orderNo=orderObj.orderV.elementAt(i).getOrderNo();
-                IC=orderObj.orderV.elementAt(i).custObj.getCustIC();
-                weight = orderObj.orderV.elementAt(i).getWeight();
-                name=orderObj.orderV.elementAt(i).custObj.getCustName();
-                sName=orderObj.orderV.elementAt(i).custObj.getShipperName();
-                sAdd=orderObj.orderV.elementAt(i).custObj.getShipperAdd();
-                cName = orderObj.orderV.elementAt(i).getCName();
-                cAdd=orderObj.orderV.elementAt(i).getCAdd();
-                amount = orderObj.orderV.elementAt(i).getAmount();
+            if ( ((this.cBoxOrderNo.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getorderNo()) ))) {
+                double rate = orderObj.orderV.elementAt(i).getamount()/(orderObj.orderV.elementAt(i).getweight()*100);
+                orderNo=orderObj.orderV.elementAt(i).getorderNo();
+                IC=orderObj.orderV.elementAt(i).custObj.getcustIC();
+                weight = orderObj.orderV.elementAt(i).getweight();
+                name=orderObj.orderV.elementAt(i).custObj.getcustName();
+                sName=orderObj.orderV.elementAt(i).custObj.getshipperName();
+                sAdd=orderObj.orderV.elementAt(i).custObj.getshipperAdd();
+                cName = orderObj.orderV.elementAt(i).getcName();
+                cAdd=orderObj.orderV.elementAt(i).getcAdd();
+                amount = orderObj.orderV.elementAt(i).getamount();
                  
                 this.txtOrderDetail.setText("Order No : "+ orderNo+
                                            "\nName       : "+ name+ 
@@ -404,8 +404,8 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         boolean recordCheck=false;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
-            oNoStatus = orderObj.orderV.elementAt(i).getOStatus().toString();
+            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+            oNoStatus = orderObj.orderV.elementAt(i).getoStatus().toString();
   
             
             if ((tempIC.equals(this.txtIC2.getText()))&& (oNoStatus.equals("done")) ) {
@@ -413,12 +413,12 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                 for (int j = 0; j < invObj.invoiceV.size(); j++) {
                     
                     invStatus = invObj.invoiceV.elementAt(j).getInvStatus();
-//                    System.out.println(orderObj.orderV.elementAt(i).getOrderNo());
-//                    System.out.println(invObj.invoiceV.elementAt(j).orderObj.getOrderNo());
+//                    System.out.println(orderObj.orderV.elementAt(i).getorderNo());
+//                    System.out.println(invObj.invoiceV.elementAt(j).orderObj.getorderNo());
                     System.out.println(invStatus);
-                    if ((orderObj.orderV.elementAt(i).getOrderNo())== invObj.invoiceV.elementAt(j).orderObj.getOrderNo()
+                    if ((orderObj.orderV.elementAt(i).getorderNo())== invObj.invoiceV.elementAt(j).orderObj.getorderNo()
                             && (invStatus.equals("pending"))) {
-                        this.cBoxOrderNo2.addItem(orderObj.orderV.elementAt(i).getOrderNo());
+                        this.cBoxOrderNo2.addItem(orderObj.orderV.elementAt(i).getorderNo());
                         recordCheck=true;
                     }
                 }
@@ -443,17 +443,17 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         //COMPLETE 
         for (int i = 0; i < orderObj.orderV.size(); i++) {
             
-            if ( ((this.cBoxOrderNo2.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getOrderNo()) ))) {
-                double rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
-                orderNo=orderObj.orderV.elementAt(i).getOrderNo();
-                IC=orderObj.orderV.elementAt(i).custObj.getCustIC();
-                weight = orderObj.orderV.elementAt(i).getWeight();
-                name=orderObj.orderV.elementAt(i).custObj.getCustName();
-                sName=orderObj.orderV.elementAt(i).custObj.getShipperName();
-                sAdd=orderObj.orderV.elementAt(i).custObj.getShipperAdd();
-                cName = orderObj.orderV.elementAt(i).getCName();
-                cAdd=orderObj.orderV.elementAt(i).getCAdd();
-                amount = orderObj.orderV.elementAt(i).getAmount();
+            if ( ((this.cBoxOrderNo2.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getorderNo()) ))) {
+                double rate = orderObj.orderV.elementAt(i).getamount()/(orderObj.orderV.elementAt(i).getweight()*100);
+                orderNo=orderObj.orderV.elementAt(i).getorderNo();
+                IC=orderObj.orderV.elementAt(i).custObj.getcustIC();
+                weight = orderObj.orderV.elementAt(i).getweight();
+                name=orderObj.orderV.elementAt(i).custObj.getcustName();
+                sName=orderObj.orderV.elementAt(i).custObj.getshipperName();
+                sAdd=orderObj.orderV.elementAt(i).custObj.getshipperAdd();
+                cName = orderObj.orderV.elementAt(i).getcName();
+                cAdd=orderObj.orderV.elementAt(i).getcAdd();
+                amount = orderObj.orderV.elementAt(i).getamount();
                 
                 this.txtOrderDetail2.setText("Order No : "+ orderNo+
                                            "\nName       : "+ name+ 

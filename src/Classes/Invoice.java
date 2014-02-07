@@ -22,7 +22,7 @@ public class Invoice implements java.io.Serializable{
     
     public Invoice(int invoiceNo,int orderNo,String invStatus) {
         this.invoiceNo=invoiceNo;
-        this.orderObj.setOrderNo(orderNo);
+        this.orderObj.setorderNo(orderNo);
         this.invStatus=invStatus;
     }
     

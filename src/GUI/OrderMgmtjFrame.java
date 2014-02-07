@@ -33,7 +33,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             this.txtOrderNo.setText("111");
         }
         else {
-           newPno=Integer.toString((orderObj.orderV.lastElement().getOrderNo())+1);
+           newPno=Integer.toString((orderObj.orderV.lastElement().getorderNo())+1);
            this.txtOrderNo.setText(newPno.toString());
         }
     }
@@ -574,17 +574,17 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         custObjs.retrieveData();
         packObj.retrieveData();
         for (int i = 0; i < custObjs.custV.size(); i++) {
-             listCIC=Integer.toString(custObjs.custV.elementAt(i).getCustIC());
+             listCIC=Integer.toString(custObjs.custV.elementAt(i).getcustIC());
              if ((this.rbtnPackaga.isSelected()==true) && listCIC.equals(this.txtIC.getText())) {
-                this.txtName.setText(custObjs.custV.elementAt(i).getCustName());
-                this.txtSName.setText(custObjs.custV.elementAt(i).getShipperName());
-                this.txtSAdd.setText(custObjs.custV.elementAt(i).getShipperAdd());
-                pno=custObjs.custV.elementAt(i).PackageObj.getPackageNo();
+                this.txtName.setText(custObjs.custV.elementAt(i).getcustName());
+                this.txtSName.setText(custObjs.custV.elementAt(i).getshipperName());
+                this.txtSAdd.setText(custObjs.custV.elementAt(i).getshipperAdd());
+                pno=custObjs.custV.elementAt(i).packageObj.getpackageNo();
                 
                  for (int j = 0; j < packObj.packV.size(); j++) {
-                     int pnoList = packObj.packV.elementAt(j).getPackageNo();
+                     int pnoList = packObj.packV.elementAt(j).getpackageNo();
                      if(pno== pnoList) {
-                        this.txtRate.setText(Double.toString(packObj.packV.elementAt(j).getRate()));
+                        this.txtRate.setText(Double.toString(packObj.packV.elementAt(j).getrate()));
                         recordCheck=true;
                         break;
                      }
@@ -625,7 +625,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
             OrderMgmtjFrame.txtOrderNo.setText("111");
         }
         else {
-           newOno=Integer.toString((orderObj.orderV.lastElement().getOrderNo())+1);
+           newOno=Integer.toString((orderObj.orderV.lastElement().getorderNo())+1);
            OrderMgmtjFrame.txtOrderNo.setText(newOno.toString());
         }
         
@@ -638,7 +638,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         String listCIC,listOno;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
+             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
              
              if (listCIC.equals(this.txtIC2.getText())) {
                  for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
@@ -651,9 +651,9 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getCustIC());
+             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
              if (listCIC.equals(this.txtIC2.getText())) {
-                listOno=Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
+                listOno=Integer.toString(orderObj.orderV.elementAt(i).getorderNo());
                 this.cBoxOrderNo.addItem(listOno);
             }
         }
@@ -679,17 +679,17 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         
         if (this.cBoxOrderNo.getSelectedItem()!= "-") {
             for (int i = 0; i <orderObj.orderV.size() ; i++) {
-                String tempNo = Integer.toString(orderObj.orderV.elementAt(i).getOrderNo());
+                String tempNo = Integer.toString(orderObj.orderV.elementAt(i).getorderNo());
                 if (tempNo.equals(No)){
-                    rate = orderObj.orderV.elementAt(i).getAmount()/(orderObj.orderV.elementAt(i).getWeight()*100);
+                    rate = orderObj.orderV.elementAt(i).getamount()/(orderObj.orderV.elementAt(i).getweight()*100);
                     //System.out.println(orderObj.orderV.elementAt(i).getOStatus());
                     this.txtRate2.setText(Double.toString(Math.round(rate*100.0)/100.0));
-                    this.txtCName2.setText(orderObj.orderV.elementAt(i).getCName());
-                    this.txtCAdd2.setText(orderObj.orderV.elementAt(i).getCAdd());
-                    this.txtName2.setText(orderObj.orderV.elementAt(i).custObj.getCustName());
-                    this.txtSName2.setText(orderObj.orderV.elementAt(i).custObj.getShipperName());
-                    this.txtSAdd2.setText(orderObj.orderV.elementAt(i).custObj.getShipperAdd());
-                    this.txtWeight2.setText(Double.toString(orderObj.orderV.elementAt(i).getWeight()));
+                    this.txtCName2.setText(orderObj.orderV.elementAt(i).getcName());
+                    this.txtCAdd2.setText(orderObj.orderV.elementAt(i).getcAdd());
+                    this.txtName2.setText(orderObj.orderV.elementAt(i).custObj.getcustName());
+                    this.txtSName2.setText(orderObj.orderV.elementAt(i).custObj.getshipperName());
+                    this.txtSAdd2.setText(orderObj.orderV.elementAt(i).custObj.getshipperAdd());
+                    this.txtWeight2.setText(Double.toString(orderObj.orderV.elementAt(i).getweight()));
                 }
             }
         }    

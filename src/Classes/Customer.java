@@ -10,55 +10,55 @@ package Classes;
  * @author Miko
  */
 public class Customer implements java.io.Serializable {
-    private int CustIC;
-    private String CustName,ShipperName,ShipperAdd;
-    public Package PackageObj= new Package();
+    private int custIC;
+    private String custName,shipperName,shipperAdd;
+    public Package packageObj= new Package();
     
     public Customer(){
-        this.CustIC = 0;
-        this.CustName = "empty";
-        this.ShipperName = "empty";
-        this.ShipperAdd = "empty";
+        this.custIC = 0;
+        this.custName = "empty";
+        this.shipperName = "empty";
+        this.shipperAdd = "empty";
     }
     
-    public Customer(int CustIC, String CustName, String ShipperName, String ShipperAdd,int Pno) {
-        this.CustIC = CustIC;
-        this.CustName = CustName;
-        this.ShipperName = ShipperName;
-        this.ShipperAdd = ShipperAdd;
-        this.PackageObj.setPackageNo(Pno);
+    public Customer(int custIC, String custName, String shipperName, String shipperAdd,int Pno) {
+        this.custIC = custIC;
+        this.custName = custName;
+        this.shipperName = shipperName;
+        this.shipperAdd = shipperAdd;
+        this.packageObj.setpackageNo(Pno);
     }
      
-    public int getCustIC() {
-        return CustIC;
+    public int getcustIC() {
+        return custIC;
     }
 
-    public void setCustIC(int CustIC) {
-        this.CustIC = CustIC;
+    public void setcustIC(int custIC) {
+        this.custIC = custIC;
     }
 
-    public String getCustName() {
-        return CustName;
+    public String getcustName() {
+        return custName;
     }
 
-    public void setCustName(String CustName) {
-        this.CustName = CustName;
+    public void setcustName(String custName) {
+        this.custName = custName;
     }
 
-    public String getShipperName() {
-        return ShipperName;
+    public String getshipperName() {
+        return shipperName;
     }
 
-    public void setShipperName(String ShipperName) {
-        this.ShipperName = ShipperName;
+    public void setshipperName(String shipperName) {
+        this.shipperName = shipperName;
     }
 
-    public String getShipperAdd() {
-        return ShipperAdd;
+    public String getshipperAdd() {
+        return shipperAdd;
     }
 
-    public void setShipperAdd(String ShipperAdd) {
-        this.ShipperAdd = ShipperAdd;
+    public void setshipperAdd(String shipperAdd) {
+        this.shipperAdd = shipperAdd;
     }
     
 }

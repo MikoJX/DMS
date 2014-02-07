@@ -11,63 +11,63 @@ package Classes;
  */
 public class Package implements java.io.Serializable {
     
-    private double Rate;
-    private String Title;
-    private int PackageNo,Min,Max;
+    private double rate;
+    private String title;
+    private int packageNo,min,max;
 
     public Package(){
-        this.Rate = 0;
-        this.Title = "empty";
-        this.PackageNo = 0;
-        this.Min = 0;
-        this.Max = 0;
+        this.rate = 0;
+        this.title = "empty";
+        this.packageNo = 0;
+        this.min = 0;
+        this.max = 0;
     }
         
-    public Package(double Rate, String Title, int PackageNo, int Min, int Max) {
-        this.Rate = Rate;
-        this.Title = Title;
-        this.PackageNo = PackageNo;
-        this.Min = Min;
-        this.Max = Max;
+    public Package(double rate, String title, int packageNo, int min, int max) {
+        this.rate = rate;
+        this.title = title;
+        this.packageNo = packageNo;
+        this.min = min;
+        this.max = max;
     }
     
-    public double getRate() {
-        return Rate;
+    public double getrate() {
+        return rate;
     }
 
-    public void setRate(double Rate) {
-        this.Rate = Rate;
+    public void setrate(double rate) {
+        this.rate = rate;
     }
 
-    public String getTitle() {
-        return Title;
+    public String gettitle() {
+        return title;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void settitle(String title) {
+        this.title = title;
     }
 
-    public int getPackageNo() {
-        return PackageNo;
+    public int getpackageNo() {
+        return packageNo;
     }
 
-    public void setPackageNo(int PackageNo) {
-        this.PackageNo = PackageNo;
+    public void setpackageNo(int packageNo) {
+        this.packageNo = packageNo;
     }
 
-    public int getMin() {
-        return Min;
+    public int getmin() {
+        return min;
     }
 
-    public void setMin(int Min) {
-        this.Min = Min;
+    public void setmin(int min) {
+        this.min = min;
     }
 
-    public int getMax() {
-        return Max;
+    public int getmax() {
+        return max;
     }
 
-    public void setMax(int Max) {
-        this.Max = Max;
+    public void setmax(int max) {
+        this.max = max;
     }
 }

@@ -147,8 +147,8 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
                 }
                 else {
                     for (int i = 0; i < custObj.custV.size(); i++) {
-                        temp += Integer.toString(custObj.custV.elementAt(i).getCustIC())+ "\t" +
-                                custObj.custV.elementAt(i).getCustName()+ "\n";
+                        temp += Integer.toString(custObj.custV.elementAt(i).getcustIC())+ "\t" +
+                                custObj.custV.elementAt(i).getcustName()+ "\n";
                     }
                     this.txtReport.setText("Total Registered Customer : "+ custObj.custV.size() + "\n" +
                                            "Customer IC \t" + "Customer Name \n"+
@@ -163,9 +163,9 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
                 }
                 else {
                     for (int i = 0; i < orderObj.orderV.size(); i++) {
-                        sales += orderObj.orderV.elementAt(i).getAmount();
-                        temp += Integer.toString(orderObj.orderV.elementAt(i).getOrderNo())+"\t" + 
-                                orderObj.orderV.elementAt(i).custObj.getCustIC()+"\n";
+                        sales += orderObj.orderV.elementAt(i).getamount();
+                        temp += Integer.toString(orderObj.orderV.elementAt(i).getorderNo())+"\t" + 
+                                orderObj.orderV.elementAt(i).custObj.getcustIC()+"\n";
                     }
                 
                     this.txtReport.setText("Total Order : "+ orderObj.orderV.size() + "\n" +
@@ -182,8 +182,8 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
                 }
                 else {
                     for (int i = 0; i < orderObj.orderV.size(); i++) {
-                        temp += Integer.toString(orderObj.orderV.elementAt(i).getOrderNo())+"\t" + 
-                                orderObj.orderV.elementAt(i).custObj.getCustIC()+"\n";
+                        temp += Integer.toString(orderObj.orderV.elementAt(i).getorderNo())+"\t" + 
+                                orderObj.orderV.elementAt(i).custObj.getcustIC()+"\n";
                     }
                 
                     this.txtReport.setText("Total Order : "+ orderObj.orderV.size() + "\n" +

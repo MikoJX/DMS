@@ -58,7 +58,7 @@ public class OrderFileIO extends FileHandler{
             {
                 retrieveData();
                 for (int i = 0; i <orderV.size(); i++) {
-                    if (orders.getOrderNo() == orderV.elementAt(i).getOrderNo()) {
+                    if (orders.getorderNo() == orderV.elementAt(i).getorderNo()) {
                         orderV.setElementAt((Order) order, i);
                     }                 
                 }

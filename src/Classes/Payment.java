@@ -13,7 +13,7 @@ package Classes;
 public class Payment {
     private int payNo;
     private String payStatus;
-    public Invoice InvoiceObj = new Invoice();
+    public Invoice invoiceObj = new Invoice();
 
     public Payment(){
         this.payNo=0;
@@ -23,7 +23,7 @@ public class Payment {
     public Payment(int payNo,String payStatus,int invNo){
         this.payNo=payNo;
         this.payStatus=payStatus;
-        this.InvoiceObj.setinvoiceNo(invNo);
+        this.invoiceObj.setinvoiceNo(invNo);
     }
     
     public int getpayNo() {
