@@ -21,9 +21,10 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     OrderFileIO orderObj = new OrderFileIO();
     InvoiceFileIO invObj = new InvoiceFileIO();
     PaymentFileIO payObj = new PaymentFileIO();
-    int invNo,payNo,orderNo,IC;
+    long IC;
+    int invNo,payNo,orderNo;
     double weight,amount;
-    String name,sName,sAdd,cName,cAdd;
+    String name,sName,sAdd,cName,cAdd,payStatus;
             
     public void clearField(){
         this.txtIC.setText("");
@@ -70,7 +71,16 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         lblPIC5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtOrderDetail2 = new javax.swing.JTextArea();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        btnSearch3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtIC3 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cBoxOrderNo3 = new javax.swing.JComboBox();
+        lblPIC6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtOrderDetail3 = new javax.swing.JTextArea();
+        lblDeliveryHeader3 = new javax.swing.JLabel();
         lblCustomerHeader3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -270,7 +280,86 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Made Payment", jPanel2);
-        jTabbedPane1.addTab("View Payment ", jTabbedPane2);
+
+        btnSearch3.setText("Search");
+        btnSearch3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearch3ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("IC : ");
+
+        jLabel2.setText("Order No : ");
+
+        cBoxOrderNo3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        cBoxOrderNo3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cBoxOrderNo3ItemStateChanged(evt);
+            }
+        });
+
+        lblPIC6.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
+        lblPIC6.setText("Order Details ");
+
+        txtOrderDetail3.setColumns(20);
+        txtOrderDetail3.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        txtOrderDetail3.setRows(5);
+        jScrollPane3.setViewportView(txtOrderDetail3);
+
+        lblDeliveryHeader3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
+        lblDeliveryHeader3.setText("View All Payment Record");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(cBoxOrderNo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtIC3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnSearch3))
+                            .addComponent(lblDeliveryHeader3)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(264, 264, 264)
+                        .addComponent(lblPIC6))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(83, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblDeliveryHeader3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch3)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIC3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cBoxOrderNo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(lblPIC6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
+        jTabbedPane1.addTab("View Payment Record", jPanel3);
 
         lblCustomerHeader3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
         lblCustomerHeader3.setText("Delivery Management System(DMS)");
@@ -307,7 +396,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         boolean recordCheck=false;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+            tempIC= Long.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
             oNoStatus = orderObj.orderV.elementAt(i).getoStatus().toString();
             if ((tempIC.equals(this.txtIC.getText()))&& (oNoStatus.equals("pending")) ) {
                 for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
@@ -322,7 +411,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         if (recordCheck) {
             for (int i = 0; i < orderObj.orderV.size(); i++) {
                 oNoStatus = orderObj.orderV.elementAt(i).getoStatus();
-                tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+                tempIC= Long.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
                 listONo=Integer.toString(orderObj.orderV.elementAt(i).getorderNo());
                 
                 if ((tempIC.equals(this.txtIC.getText()))&& oNoStatus.equals("pending") ) {
@@ -404,7 +493,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         boolean recordCheck=false;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-            tempIC= Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+            tempIC= Long.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
             oNoStatus = orderObj.orderV.elementAt(i).getoStatus().toString();
   
             
@@ -416,7 +505,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
 //                    System.out.println(orderObj.orderV.elementAt(i).getorderNo());
 //                    System.out.println(invObj.invoiceV.elementAt(j).orderObj.getorderNo());
                     System.out.println(invStatus);
-                    if ((orderObj.orderV.elementAt(i).getorderNo())== invObj.invoiceV.elementAt(j).orderObj.getorderNo()
+                    if (((orderObj.orderV.elementAt(i).getorderNo())== invObj.invoiceV.elementAt(j).orderObj.getorderNo())
                             && (invStatus.equals("pending"))) {
                         this.cBoxOrderNo2.addItem(orderObj.orderV.elementAt(i).getorderNo());
                         recordCheck=true;
@@ -495,6 +584,76 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_btnPayActionPerformed
 
+    private void btnSearch3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch3ActionPerformed
+        orderObj.retrieveData();
+        invObj.retrieveData();
+        
+        String tempIC,oNoStatus;
+        boolean recordCheck=false;
+        
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+            tempIC= Long.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+            oNoStatus = orderObj.orderV.elementAt(i).getoStatus().toString();
+
+            if ((tempIC.equals(this.txtIC3.getText()))&& (oNoStatus.equals("done")) ) {
+              
+                for (int j = 0; j < invObj.invoiceV.size(); j++) {
+                    if ((orderObj.orderV.elementAt(i).getorderNo())== invObj.invoiceV.elementAt(j).orderObj.getorderNo()) {
+                        this.cBoxOrderNo3.addItem(orderObj.orderV.elementAt(i).getorderNo());
+                        recordCheck=true;
+                    }
+                }
+            }
+        }
+        
+        if (recordCheck) {            
+            this.cBoxOrderNo3.removeItemAt(0);
+        }else {
+            this.cBoxOrderNo3.addItem("-");
+            for (int j = 0; j < (this.cBoxOrderNo3.getItemCount()); j++) { 
+                    this.cBoxOrderNo3.removeItemAt(0); }
+            JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
+            clearField();
+        }
+    }//GEN-LAST:event_btnSearch3ActionPerformed
+
+    private void cBoxOrderNo3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cBoxOrderNo3ItemStateChanged
+        //COMPLETE 
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+            
+            if ( ((this.cBoxOrderNo3.getSelectedItem().toString()).equals(Integer.toString(orderObj.orderV.elementAt(i).getorderNo()) ))) {
+                double rate = orderObj.orderV.elementAt(i).getamount()/(orderObj.orderV.elementAt(i).getweight()*100);
+                orderNo=orderObj.orderV.elementAt(i).getorderNo();
+                IC=orderObj.orderV.elementAt(i).custObj.getcustIC();
+                weight = orderObj.orderV.elementAt(i).getweight();
+                name=orderObj.orderV.elementAt(i).custObj.getcustName();
+                sName=orderObj.orderV.elementAt(i).custObj.getshipperName();
+                sAdd=orderObj.orderV.elementAt(i).custObj.getshipperAdd();
+                cName = orderObj.orderV.elementAt(i).getcName();
+                cAdd=orderObj.orderV.elementAt(i).getcAdd();
+                amount = orderObj.orderV.elementAt(i).getamount();
+                for (int j = 0; j < invObj.invoiceV.size(); j++) {
+                    if ( ((this.cBoxOrderNo3.getSelectedItem().toString()).equals(Integer.toString(invObj.invoiceV.elementAt(i).getinvoiceNo()) ))) {
+                        payStatus = invObj.invoiceV.elementAt(i).getInvStatus();
+                    }
+                }
+                
+                this.txtOrderDetail3.setText("Order No : "+ orderNo+
+                                           "\nPayment Status : " + payStatus+
+                                           "\nName       : "+ name+ 
+                                           "\nIC             : "+ IC +
+                                           "\n=========================Shipping Details===========================" +
+                                           "\nShipper Name           : " + sName+
+                                           "\nShipper Address      : " + sAdd+
+                                           "\nConsignee Name      : " + cName+
+                                           "\nConsignee Address : " + cAdd+
+                                           "\n\nWeight : "+ weight + "kg"+
+                                           "\nRate : "+ (Double.toString(Math.round(rate*100.0)/100.0)) + "/100 gram"+
+                                           "\nAmount : "+ amount);     
+            }
+        }
+    }//GEN-LAST:event_cBoxOrderNo3ItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -536,26 +695,35 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnPay;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearch2;
+    private javax.swing.JButton btnSearch3;
     private javax.swing.JComboBox cBoxOrderNo;
     private javax.swing.JComboBox cBoxOrderNo2;
+    private javax.swing.JComboBox cBoxOrderNo3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel lblCustomerHeader3;
     private javax.swing.JLabel lblDeliveryHeader1;
     private javax.swing.JLabel lblDeliveryHeader2;
+    private javax.swing.JLabel lblDeliveryHeader3;
     private javax.swing.JLabel lblPIC;
     private javax.swing.JLabel lblPIC1;
     private javax.swing.JLabel lblPIC2;
     private javax.swing.JLabel lblPIC3;
     private javax.swing.JLabel lblPIC4;
     private javax.swing.JLabel lblPIC5;
+    private javax.swing.JLabel lblPIC6;
     private javax.swing.JTextField txtIC;
     private javax.swing.JTextField txtIC2;
+    private javax.swing.JTextField txtIC3;
     private javax.swing.JTextArea txtOrderDetail;
     private javax.swing.JTextArea txtOrderDetail2;
+    private javax.swing.JTextArea txtOrderDetail3;
     // End of variables declaration//GEN-END:variables
 }

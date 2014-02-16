@@ -17,7 +17,7 @@ public class Invoice implements java.io.Serializable{
     
     public Invoice(){
         this.invoiceNo = 0;
-        this.invStatus ="pending";
+        this.invStatus ="empty";
     }
     
     public Invoice(int invoiceNo,int orderNo,String invStatus) {

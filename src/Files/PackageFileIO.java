@@ -9,32 +9,8 @@ import java.io.*;
 import java.util.Vector;
 import Classes.Package;
 
-/**
- *
- * @author Miko
- */
 public class PackageFileIO extends FileHandler {
     public static Vector<Package> packV=new Vector<Package>(); 
-    
-//    public static void main(String[] args) {
-//               
-//        //packV.clear();
-//        retrieveData();
-//        
-//        //AddPackage(222,200,2,2.6,"Bla");
-////        SavePackage();
-//        //EditPackage();
-//        //EditPackage(222,300,2,2.6,"Bla");
-//        
-//        //System.out.println(packV.elementAt(0).getMax());
-//    }
-    
-//    public static void AddPackage(int pno,int max,int min,double rate,String title){
-//        FileCheck();
-//        retrieveData();
-//        packV.addElement(new Package(rate,title,pno,min,max)); 
-//        SavePackage();
-//    }
     
     @Override
     public void add(Object pack){
@@ -64,16 +40,6 @@ public class PackageFileIO extends FileHandler {
                 save();
             }
     }
-    
-//    public static void EditPackage(int pno,int max,int min,double rate,String title){
-//        retrieveData();
-//        for (int i = 0; i <packV.size(); i++) {
-//            if (packV.elementAt(i).getPackageNo()==pno) {
-//                packV.setElementAt(new Package(rate,title,pno,min,max), i);
-//            }  
-//        }
-//        SavePackage();
-//    }
     
     @Override
     public void retrieveData(){

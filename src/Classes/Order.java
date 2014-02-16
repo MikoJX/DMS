@@ -25,7 +25,7 @@ public class Order implements java.io.Serializable{
         this.cAdd = "empty";
     }
     
-    public Order(double amount, int IC, int orderNo, double weight, String custName,String SName,String SAdd,String cName, String cAdd,String oStatus) {
+    public Order(double amount, long IC, int orderNo, double weight, String custName,String SName,String SAdd,String cName, String cAdd,String oStatus) {
         this.amount = amount;
         this.orderNo = orderNo;
         this.weight = weight;

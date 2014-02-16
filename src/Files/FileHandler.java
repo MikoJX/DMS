@@ -6,10 +6,7 @@
 
 package Files;
 
-/**
- *
- * @author Miko
- */
+
 public abstract class FileHandler {
     public void add(Object obj) {}
     public void edit(Object obj){}

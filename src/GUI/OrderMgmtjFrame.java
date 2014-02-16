@@ -574,7 +574,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         custObjs.retrieveData();
         packObj.retrieveData();
         for (int i = 0; i < custObjs.custV.size(); i++) {
-             listCIC=Integer.toString(custObjs.custV.elementAt(i).getcustIC());
+             listCIC=Long.toString(custObjs.custV.elementAt(i).getcustIC());
              if ((this.rbtnPackaga.isSelected()==true) && listCIC.equals(this.txtIC.getText())) {
                 this.txtName.setText(custObjs.custV.elementAt(i).getcustName());
                 this.txtSName.setText(custObjs.custV.elementAt(i).getshipperName());
@@ -638,9 +638,9 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         String listCIC,listOno;
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+             listCIC=Long.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
              
-             if (listCIC.equals(this.txtIC2.getText())) {
+             if (listCIC.equals(this.txtIC2.getText()) && orderObj.orderV.elementAt(i).getoStatus().equals("pending")) {
                  for (int j = 1; j < (this.cBoxOrderNo.getItemCount()); j++) { 
                     this.cBoxOrderNo.removeItemAt(1);
                 }
@@ -651,8 +651,8 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
         
         for (int i = 0; i < orderObj.orderV.size(); i++) {
-             listCIC=Integer.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
-             if (listCIC.equals(this.txtIC2.getText())) {
+             listCIC=Long.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
+             if (listCIC.equals(this.txtIC2.getText()) && orderObj.orderV.elementAt(i).getoStatus().equals("pending")) {
                 listOno=Integer.toString(orderObj.orderV.elementAt(i).getorderNo());
                 this.cBoxOrderNo.addItem(listOno);
             }
@@ -720,9 +720,9 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         orderObj.edit(order);
         JOptionPane.showMessageDialog(this, "Order Successful Edited!", "Information",JOptionPane.INFORMATION_MESSAGE);
         clearField();
-//        this.cBoxOrderNo.removeAllItems();
-//        this.cBoxOrderNo.addItem("-");
-        
+        this.cBoxOrderNo.addItem("-");
+        for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
+             this.cBoxOrderNo.removeItemAt(0); }        
     }//GEN-LAST:event_btnSave2ActionPerformed
 
     /**

@@ -19,11 +19,12 @@ import javax.swing.JFrame;
  * @author Miko
  */
 public class CustMgmtJFrame extends javax.swing.JFrame {
+    //public static final int value = 14;
     CustomerFileIO custObj = new CustomerFileIO();
     PackageFileIO packObj = new PackageFileIO();
     
-    
-    int IC,pNo;
+    int pNo;
+    long IC;
     String name,sName,sAdd;
     
     private void clearField(){
@@ -183,8 +184,6 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel23))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -199,7 +198,9 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel32)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtMin, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cBoxPackageNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cBoxPackageNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblCustomerHeader1))
                 .addContainerGap(201, Short.MAX_VALUE))
         );
@@ -214,12 +215,13 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
-                    .addComponent(txtIC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20)))
+                    .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,12 +447,15 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMin2ActionPerformed
 
+    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        //IC= (jFormattedTextField1.getText()).toCharArray();
+        
         //CHANGES DONE IC set as UNIQUE Key 
         boolean nameCheck=false;
-        int tempIC;
+        long tempIC;
         try {
-            IC=Integer.parseInt(this.txtIC.getText());
+            IC=Long.parseLong(txtIC.getText());
             pNo=Integer.parseInt(this.cBoxPackageNo.getSelectedItem().toString());
             name=this.txtName.getText();
             sName=this.txtSName.getText();
@@ -480,6 +485,9 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
                         JOptionPane.INFORMATION_MESSAGE);
             clearField();
         }
+//        Customer customer = new Customer(IC,name,sName,sAdd,pNo);
+//        custObj.add(customer);
+//        System.out.println(custObj.custV.elementAt(0).getcustIC());
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void cBoxPackageNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxPackageNoActionPerformed
@@ -509,7 +517,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
     private void btnSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave2ActionPerformed
          try {
              
-            IC=Integer.parseInt(this.txtIC2.getText());
+            IC=Long.parseLong(this.txtIC2.getText());
             pNo=Integer.parseInt(this.cBoxPackageNo2.getSelectedItem().toString());
             name=this.txtName2.getText();
             sName=this.txtSName2.getText();
@@ -566,7 +574,7 @@ public class CustMgmtJFrame extends javax.swing.JFrame {
         String listCIC;
         custObj.retrieveData();
         for (int i = 0; i < custObj.custV.size(); i++) {
-             listCIC=Integer.toString(custObj.custV.elementAt(i).getcustIC());
+             listCIC=Long.toString(custObj.custV.elementAt(i).getcustIC());
              if (listCIC.equals(this.txtIC2.getText())) {
                 this.txtName2.setText(custObj.custV.elementAt(i).getcustName());
                 this.txtSName2.setText(custObj.custV.elementAt(i).getshipperName());

@@ -57,7 +57,7 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
             }
         });
 
-        cboxReport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Registered Customer", "Total Order", "Total Sales" }));
+        cboxReport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Registered Customer", "Total Sales", "Total Order" }));
 
         txtReport.setColumns(20);
         txtReport.setRows(5);
@@ -147,7 +147,7 @@ public class ReportMgmtJFrame extends javax.swing.JFrame {
                 }
                 else {
                     for (int i = 0; i < custObj.custV.size(); i++) {
-                        temp += Integer.toString(custObj.custV.elementAt(i).getcustIC())+ "\t" +
+                        temp += Long.toString(custObj.custV.elementAt(i).getcustIC())+ "\t" +
                                 custObj.custV.elementAt(i).getcustName()+ "\n";
                     }
                     this.txtReport.setText("Total Registered Customer : "+ custObj.custV.size() + "\n" +

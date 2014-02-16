@@ -17,7 +17,7 @@ public class Payment {
 
     public Payment(){
         this.payNo=0;
-        this.payStatus="empty";
+        this.payStatus="pending";
     }
     
     public Payment(int payNo,String payStatus,int invNo){

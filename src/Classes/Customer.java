@@ -10,7 +10,7 @@ package Classes;
  * @author Miko
  */
 public class Customer implements java.io.Serializable {
-    private int custIC;
+    private long custIC ;
     private String custName,shipperName,shipperAdd;
     public Package packageObj= new Package();
     
@@ -21,7 +21,7 @@ public class Customer implements java.io.Serializable {
         this.shipperAdd = "empty";
     }
     
-    public Customer(int custIC, String custName, String shipperName, String shipperAdd,int Pno) {
+    public Customer(long custIC, String custName, String shipperName, String shipperAdd,int Pno) {
         this.custIC = custIC;
         this.custName = custName;
         this.shipperName = shipperName;
@@ -29,11 +29,11 @@ public class Customer implements java.io.Serializable {
         this.packageObj.setpackageNo(Pno);
     }
      
-    public int getcustIC() {
+    public long getcustIC() {
         return custIC;
     }
 
-    public void setcustIC(int custIC) {
+    public void setcustIC(long custIC) {
         this.custIC = custIC;
     }
 
