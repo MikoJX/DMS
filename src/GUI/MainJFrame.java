@@ -8,7 +8,9 @@ package GUI;
 
 import Files.OrderFileIO;
 import Files.PackageFileIO;
+import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -201,17 +203,27 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryActionPerformed
-//        this.setVisible(false);
-//        new DeliveryMgmtJFrame().setVisible(true);
         JFrame dFrame = new DeliveryMgmtJFrame();
         dFrame.setVisible(true);
         dFrame.setAlwaysOnTop( true );
         dFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        orderObj.retrieveData();
+        
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+            Vector newRow = new Vector();
+            newRow.add(orderObj.orderV.elementAt(i).getorderNo());
+            newRow.add(orderObj.orderV.elementAt(i).getDeliverStatus());
+            newRow.add(orderObj.orderV.elementAt(i).custObj.getcustIC());
+            newRow.add(orderObj.orderV.elementAt(i).custObj.getcustName());
+            newRow.add(orderObj.orderV.elementAt(i).getcName());
+            newRow.add(orderObj.orderV.elementAt(i).getcAdd());
+            
+            DefaultTableModel defaultModel = (DefaultTableModel)DeliveryMgmtJFrame.tblDeliver.getModel();
+            defaultModel.addRow(newRow);            
+        }
     }//GEN-LAST:event_btnDeliveryActionPerformed
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
-//        this.setVisible(false);
-//        new PaymentMgmtJFrame().setVisible(true);
         JFrame pFrame = new PaymentMgmtJFrame();
         pFrame.setVisible(true);
         pFrame.setAlwaysOnTop( true );

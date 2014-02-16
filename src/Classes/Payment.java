@@ -10,7 +10,7 @@ package Classes;
  *
  * @author Miko
  */
-public class Payment {
+public class Payment implements java.io.Serializable{
     private int payNo;
     private String payStatus;
     public Invoice invoiceObj = new Invoice();

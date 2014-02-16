@@ -29,8 +29,10 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
     public void clearField(){
         this.txtIC.setText("");
         this.txtIC2.setText("");
+        this.txtIC3.setText("");
         this.txtOrderDetail.setText("");
         this.txtOrderDetail2.setText("");
+        this.txtOrderDetail3.setText("");
     }
     /**
      * Creates new form PaymentMgmtJFrame
@@ -436,17 +438,24 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         //COMPLETE
         invNo =Integer.parseInt(this.cBoxOrderNo.getSelectedItem().toString()); 
         Invoice invoice = new Invoice(invNo,invNo,"pending");
-        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"done");
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"done","pending");
         orderObj.edit(order);
         invObj.add(invoice);
         
         JOptionPane.showMessageDialog(this, "Invoice Successful Generated!", "Information",JOptionPane.INFORMATION_MESSAGE);
-        clearField();
         this.btnGenerate.setEnabled(false);
         this.cBoxOrderNo.addItem("-");
         for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
                     this.cBoxOrderNo.removeItemAt(0); }
-        
+        this.cBoxOrderNo2.addItem("-");
+        for (int i = 0; i < (this.cBoxOrderNo2.getItemCount()); i++) {
+            this.cBoxOrderNo2.removeItemAt(0);
+        }
+        this.cBoxOrderNo3.addItem("-");
+        for (int i = 0; i < (this.cBoxOrderNo3.getItemCount()); i++) {
+            this.cBoxOrderNo3.removeItemAt(0);
+        }
+        clearField();
     }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void cBoxOrderNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxOrderNoActionPerformed
@@ -495,15 +504,12 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         for (int i = 0; i < orderObj.orderV.size(); i++) {
             tempIC= Long.toString(orderObj.orderV.elementAt(i).custObj.getcustIC());
             oNoStatus = orderObj.orderV.elementAt(i).getoStatus().toString();
-  
             
             if ((tempIC.equals(this.txtIC2.getText()))&& (oNoStatus.equals("done")) ) {
               
                 for (int j = 0; j < invObj.invoiceV.size(); j++) {
                     
                     invStatus = invObj.invoiceV.elementAt(j).getInvStatus();
-//                    System.out.println(orderObj.orderV.elementAt(i).getorderNo());
-//                    System.out.println(invObj.invoiceV.elementAt(j).orderObj.getorderNo());
                     System.out.println(invStatus);
                     if (((orderObj.orderV.elementAt(i).getorderNo())== invObj.invoiceV.elementAt(j).orderObj.getorderNo())
                             && (invStatus.equals("pending"))) {
@@ -513,7 +519,6 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                 }
             }
         }
-        
         if (recordCheck) {            
             this.cBoxOrderNo2.removeItemAt(0);
             this.btnPay.setEnabled(true);
@@ -571,17 +576,25 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         
         if (dialogResult==0) {
             payNo =Integer.parseInt(this.cBoxOrderNo2.getSelectedItem().toString()); 
-            Invoice invoice = new Invoice(invNo,invNo,"done");
+            Invoice invoice = new Invoice(payNo,payNo,"done");
             Payment payment = new Payment(payNo,"paid",payNo);
             invObj.edit(invoice);
             payObj.add(payment);
-            clearField();
             JOptionPane.showMessageDialog(this, "Payment made ", "Information",JOptionPane.INFORMATION_MESSAGE);
             this.btnPay.setEnabled(false);
             this.cBoxOrderNo2.addItem("-");
             for (int i = 0; i < (this.cBoxOrderNo2.getItemCount()); i++) { 
-                        this.cBoxOrderNo2.removeItemAt(0); }
-        }        
+               this.cBoxOrderNo2.removeItemAt(0); }
+            this.cBoxOrderNo.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo.getItemCount()); i++) {
+                 this.cBoxOrderNo.removeItemAt(0);
+            }
+            this.cBoxOrderNo3.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo3.getItemCount()); i++) {
+                 this.cBoxOrderNo3.removeItemAt(0);
+            }
+            clearField();
+        }     
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void btnSearch3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch3ActionPerformed
@@ -633,8 +646,8 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
                 cAdd=orderObj.orderV.elementAt(i).getcAdd();
                 amount = orderObj.orderV.elementAt(i).getamount();
                 for (int j = 0; j < invObj.invoiceV.size(); j++) {
-                    if ( ((this.cBoxOrderNo3.getSelectedItem().toString()).equals(Integer.toString(invObj.invoiceV.elementAt(i).getinvoiceNo()) ))) {
-                        payStatus = invObj.invoiceV.elementAt(i).getInvStatus();
+                    if ( ((this.cBoxOrderNo3.getSelectedItem().toString()).equals(Integer.toString(invObj.invoiceV.elementAt(j).getinvoiceNo()) ))) {
+                        payStatus = invObj.invoiceV.elementAt(j).getInvStatus();
                     }
                 }
                 

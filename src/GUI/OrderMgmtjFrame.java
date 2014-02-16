@@ -21,8 +21,9 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
     CustomerFileIO custObjs = new CustomerFileIO();
     PackageFileIO packObj = new PackageFileIO();
     
+    long IC;
     double amount,weight,rate;
-    int pno,IC,orderNo;
+    int pno,orderNo;
     String sName,sAdd,name,cName,cAdd;
     
     private void autoGenerator(){
@@ -601,7 +602,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         //NEW ORDER COMPLETE
          try {
             orderNo=Integer.parseInt(this.txtOrderNo.getText());
-            IC=Integer.parseInt(this.txtIC.getText());
+            IC=Long.parseLong(this.txtIC.getText());
             weight = Double.parseDouble(this.txtWeight.getText());
             name=this.txtName.getText();
             sName=this.txtSName.getText();
@@ -614,7 +615,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
          
         amount=((Double.parseDouble(this.txtWeight.getText()))*100) * Double.parseDouble(this.txtRate.getText()) ;
-        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"pending");
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"pending","pending");
         orderObj.add(order);
         JOptionPane.showMessageDialog(this, "Order Successful Added!", "Information",JOptionPane.INFORMATION_MESSAGE);
         clearField();
@@ -703,7 +704,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         //SAVE EDITED RECORD COMPLETE 
         try {
             orderNo=Integer.parseInt(this.cBoxOrderNo.getSelectedItem().toString());
-            IC=Integer.parseInt(this.txtIC2.getText());
+            IC=Long.parseLong(this.txtIC2.getText());
             weight = Double.parseDouble(this.txtWeight2.getText());
             name=this.txtName2.getText();
             sName=this.txtSName2.getText();
@@ -716,7 +717,7 @@ public class OrderMgmtjFrame extends javax.swing.JFrame {
         }
          
         amount=((Double.parseDouble(this.txtWeight2.getText()))*100) * Double.parseDouble(this.txtRate2.getText()) ;
-        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"pending");
+        Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,"pending","pending");
         orderObj.edit(order);
         JOptionPane.showMessageDialog(this, "Order Successful Edited!", "Information",JOptionPane.INFORMATION_MESSAGE);
         clearField();

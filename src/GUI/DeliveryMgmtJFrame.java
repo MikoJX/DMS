@@ -6,12 +6,21 @@
 
 package GUI;
 
+import Classes.Order;
+import Files.OrderFileIO;
+import Files.PaymentFileIO;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Miko
  */
 public class DeliveryMgmtJFrame extends javax.swing.JFrame {
-
+    OrderFileIO orderObj = new OrderFileIO();
+    PaymentFileIO payObj = new PaymentFileIO();
     /**
      * Creates new form DeliveryMgmtJFrame
      */
@@ -30,14 +39,20 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
 
         lblCustomerHeader3 = new javax.swing.JLabel();
         lblDeliveryHeader = new javax.swing.JLabel();
-        txtDIC = new javax.swing.JTextField();
+        txtIC = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btnDSearch = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        btnDSave = new javax.swing.JButton();
+        cBoxDeliverStatus = new javax.swing.JComboBox();
+        btnUpdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        tblDeliver = new javax.swing.JTable(){
+
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false;
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +60,7 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
         lblCustomerHeader3.setText("Delivery Management System(DMS)");
 
         lblDeliveryHeader.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
-        lblDeliveryHeader.setText("Order Delivery ");
+        lblDeliveryHeader.setText("Order Delivery Management");
 
         jLabel16.setText("IC : ");
 
@@ -58,73 +73,109 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
 
         jLabel17.setText("Delivery Status : ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Delivered", "On-Hold " }));
+        cBoxDeliverStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Delivered", "On-Hold " }));
 
-        btnDSave.setText("Save");
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        tblDeliver.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Order No", "Status", "Customer IC", "Customer Name", "Shipping Name", "Shipping Address"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDeliver);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(lblCustomerHeader3)
-                            .addGap(183, 183, 183))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(227, 227, 227)
-                                    .addComponent(lblDeliveryHeader))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel16)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(txtDIC, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(btnDSearch))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel17)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnDSave)))
-                            .addGap(255, 255, 255)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblCustomerHeader3)
+                        .addGap(230, 230, 230))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblDeliveryHeader)
+                        .addGap(265, 265, 265))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel16)
+                .addGap(18, 18, 18)
+                .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDSearch)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(cBoxDeliverStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdate)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblCustomerHeader3)
-                .addGap(36, 36, 36)
+                .addGap(35, 35, 35)
                 .addComponent(lblDeliveryHeader)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(btnDSearch))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(btnDSearch)
                     .addComponent(jLabel17)
-                    .addComponent(btnDSave)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(btnUpdate)
+                    .addComponent(cBoxDeliverStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDSearchActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnDSearchActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        double amount,weight;
+        long IC;
+        String sName,sAdd,cName,cAdd,name,oStatus,dStatus;
+        
+        orderObj.retrieveData();
+        int index = this.tblDeliver.getSelectedRow();
+        int orderNo = Integer.parseInt((this.tblDeliver.getValueAt(index, 0)).toString());
+               
+        dStatus = this.cBoxDeliverStatus.getSelectedItem().toString();
+        this.tblDeliver.setValueAt(dStatus, index, 1);
+        
+        for (int i = 0; i < orderObj.orderV.size(); i++) {
+            if (orderObj.orderV.elementAt(i).getorderNo()== orderNo){
+                amount= orderObj.orderV.elementAt(i).getamount();
+                IC=orderObj.orderV.elementAt(i).custObj.getcustIC();
+                weight= orderObj.orderV.elementAt(i).getweight();
+                name=orderObj.orderV.elementAt(i).custObj.getcustName();
+                sName=orderObj.orderV.elementAt(i).custObj.getshipperName();
+                sAdd=orderObj.orderV.elementAt(i).custObj.getshipperAdd();
+                cName=orderObj.orderV.elementAt(i).getcName();
+                cAdd=orderObj.orderV.elementAt(i).getcAdd();
+                oStatus = orderObj.orderV.elementAt(i).getoStatus();
+                Order order = new Order(amount,IC,orderNo,weight,name,sName,sAdd,cName,cAdd,oStatus,dStatus);
+                orderObj.edit(order);
+            }
+        }        
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,15 +213,15 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDSave;
     private javax.swing.JButton btnDSearch;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox cBoxDeliverStatus;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblCustomerHeader3;
     private javax.swing.JLabel lblDeliveryHeader;
-    private javax.swing.JTextField txtDIC;
+    public static javax.swing.JTable tblDeliver;
+    private javax.swing.JTextField txtIC;
     // End of variables declaration//GEN-END:variables
 }

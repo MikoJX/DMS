@@ -14,7 +14,7 @@ public class Order implements java.io.Serializable{
     private double amount,weight;
     public Customer custObj=new Customer();
     private int orderNo;
-    private String oStatus,cName,cAdd;
+    private String oStatus,cName,cAdd, deliverStatus;
 
     public Order(){
         this.amount = 0;
@@ -23,9 +23,10 @@ public class Order implements java.io.Serializable{
         this.oStatus = "empty";
         this.cName = "empty";
         this.cAdd = "empty";
+        this.deliverStatus="empty";
     }
-    
-    public Order(double amount, long IC, int orderNo, double weight, String custName,String SName,String SAdd,String cName, String cAdd,String oStatus) {
+
+    public Order(double amount, long IC, int orderNo, double weight, String custName,String SName,String SAdd,String cName, String cAdd,String oStatus,String deliverStatus) {
         this.amount = amount;
         this.orderNo = orderNo;
         this.weight = weight;
@@ -35,7 +36,8 @@ public class Order implements java.io.Serializable{
         this.custObj.setcustIC(IC);
         this.custObj.setcustName(custName);
         this.custObj.setshipperName(SName);
-        this.custObj.setshipperAdd(SAdd); 
+        this.custObj.setshipperAdd(SAdd);
+        this.deliverStatus=deliverStatus;
     }
     
     public double getamount() {
@@ -86,7 +88,11 @@ public class Order implements java.io.Serializable{
         this.cAdd = cAdd;
     }
     
-    
-    
-    
+     public String getDeliverStatus() {
+        return deliverStatus;
+    }
+
+    public void setDeliverStatus(String deliverStatus) {
+        this.deliverStatus = deliverStatus;
+    }    
 }
