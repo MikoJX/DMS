@@ -6,6 +6,9 @@
 
 package GUI;
 
+import User.Administrator;
+import User.Staff;
+import User.Manager;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -111,28 +114,45 @@ public class LoginJFrame extends javax.swing.JFrame {
         String user,pass;
         user= this.txtUsername.getText();
         pass=this.txtPassword.getText();
-        
-        if ((user.equals("admin"))&& (pass.equals("admin"))) {
-            MainJFrame adminFrame = new MainJFrame();
-            adminFrame.setVisible(true);
-            this.setVisible(false);
-        } 
-        else if((user.equals("manager"))&& (pass.equals("manager"))) {
-            MainJFrame managerFrame = new MainJFrame();
-            managerFrame.setVisible(true);
-            MainJFrame.btnPackage.setVisible(false);
-            this.setVisible(false);
-        }
-        else if((user.equals("staff"))&& (pass.equals("staff"))){
-            MainJFrame managerFrame = new MainJFrame();
-            managerFrame.setVisible(true);
+      
+        Staff sobj = new Staff();
+        sobj.setUserName(user);
+        sobj.setPassword(pass);
+        if (sobj.loginCheck()== false) {
+            Manager mobj= new Manager();
+            mobj.setUserName(user);
+            mobj.setPassword(pass);
+            
+            if (mobj.loginCheck()==false){
+                Administrator aobj = new Administrator();
+                aobj.setUserName(user);
+                aobj.setPassword(pass);
+                
+                if (aobj.loginCheck()==false){
+                    JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Error",
+                    JOptionPane.ERROR_MESSAGE);    
+                }
+                else {
+                    MainJFrame adminFrame = new MainJFrame();
+                    adminFrame.setVisible(true);
+                    adminFrame.setLocationRelativeTo(null);
+                    this.setVisible(false);
+                }
+            }
+            else {
+                MainJFrame managerFrame = new MainJFrame();
+                managerFrame.setVisible(true);
+                managerFrame.setLocationRelativeTo(null);
+                MainJFrame.btnPackage.setVisible(false);
+                this.setVisible(false);
+            }
+        }else {
+            MainJFrame staffFrame = new MainJFrame();
+            staffFrame.setVisible(true);
+            staffFrame.setLocationRelativeTo(null);
             MainJFrame.btnPackage.setVisible(false);
             MainJFrame.btnReport.setVisible(false);
             this.setVisible(false);
-        }
-        else {
-            JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Error",
-                    JOptionPane.ERROR_MESSAGE);        
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -140,6 +160,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

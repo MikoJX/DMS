@@ -5,7 +5,6 @@
  */
 
 package Classes;
-
 /**
  *
  * @author Miko
@@ -41,6 +40,4 @@ public class Invoice implements java.io.Serializable{
     public void setInvStatus(String invStatus) {
         this.invStatus = invStatus;
     }
-    
-    
 }

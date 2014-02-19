@@ -14,14 +14,9 @@ import Classes.Customer;
  */
 public class CustomerFileIO extends FileHandler{
     public Vector<Customer> custV=new Vector<Customer>(); 
-//    public static void main(String[] args) {
-//        //SaveCust();
-//        //AddPackage(12,"tt","mm","zz",33);
-//        System.out.println(custV.elementAt(0).PackageObj.getPackageNo());
-//    }
     
     @Override
-        public void add(Object customer){
+    public void add(Object customer){
             if(customer instanceof Customer)
             {
                 fileCheck();
@@ -29,19 +24,9 @@ public class CustomerFileIO extends FileHandler{
                 custV.addElement((Customer) customer);
                 save();
             }
-        }
-
-      
-      
-//    @Override
-//      public void Add(){
-//        FileCheck();
-//        RetrieveData();
-//        custV.addElement(new Customer(CIC,CName,SName,SAdd,Pno)); 
-//        Save();
-//    }
-      @Override
-      public void edit(Object customer){
+    }
+    @Override
+    public void edit(Object customer){
           Customer cust = new Customer();
           cust = (Customer) customer;
          
@@ -55,17 +40,7 @@ public class CustomerFileIO extends FileHandler{
                 }
                 save();
             }
-      }
-//    public void Edit(int CIC, String CName, String SName, String SAdd,int PNo){
-//        RetrieveData();
-//        for (int i = 0; i <custV.size(); i++) {
-//            if (custV.elementAt(i).getCustIC()==CIC) {
-//                custV.setElementAt(new Customer(CIC,CName,SName,SAdd,PNo), i);
-//            }  
-//        }
-//        Save();
-//    }
-    
+    }
     @Override
     public void retrieveData(){
         if (custV.isEmpty()==false) {custV.removeAllElements();}
@@ -74,20 +49,14 @@ public class CustomerFileIO extends FileHandler{
         try {
             FileInputStream fis = new FileInputStream("custRecord.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            
             while (true) {
                custV.addElement((Customer)ois.readObject());              
-             }
-            //ois.close();
-            
+             }            
         } catch (Exception e) {
-            //System.out.println("No Record");
         }
     }
-    
     @Override
     public void save(){
-        //FILE INPUT
         try {
             // create a new file with an ObjectOutputStream
             FileOutputStream fos = new FileOutputStream("custRecord.txt");
@@ -101,7 +70,6 @@ public class CustomerFileIO extends FileHandler{
          } catch (Exception ex) {
             System.out.println("Invalid !");
          } 
-    
     }
     
     @Override
@@ -116,10 +84,4 @@ public class CustomerFileIO extends FileHandler{
 //            obj.close();
         }
     }
-
-
-//    @Override
-//    public void Edit() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 }

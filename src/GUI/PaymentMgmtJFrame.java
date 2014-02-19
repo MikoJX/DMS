@@ -33,6 +33,8 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         this.txtOrderDetail.setText("");
         this.txtOrderDetail2.setText("");
         this.txtOrderDetail3.setText("");
+        this.btnGenerate.setEnabled(false);
+        this.btnPay.setEnabled(false);
     }
     /**
      * Creates new form PaymentMgmtJFrame
@@ -310,7 +312,7 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         jScrollPane3.setViewportView(txtOrderDetail3);
 
         lblDeliveryHeader3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
-        lblDeliveryHeader3.setText("View All Payment Record");
+        lblDeliveryHeader3.setText("View Payment Record");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -425,11 +427,19 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
             this.btnGenerate.setEnabled(true);
         }
         else {
-            this.cBoxOrderNo.addItem("-");
-            for (int j = 0; j < (this.cBoxOrderNo.getItemCount()); j++) { 
-                    this.cBoxOrderNo.removeItemAt(0); }
             JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
             this.btnGenerate.setEnabled(false);
+            this.cBoxOrderNo2.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo2.getItemCount()); i++) { 
+               this.cBoxOrderNo2.removeItemAt(0); }
+            this.cBoxOrderNo.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo.getItemCount()); i++) {
+                 this.cBoxOrderNo.removeItemAt(0);
+            }
+            this.cBoxOrderNo3.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo3.getItemCount()); i++) {
+                 this.cBoxOrderNo3.removeItemAt(0);
+            }
             clearField();
         }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -524,11 +534,19 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
             this.btnPay.setEnabled(true);
 
         }else {
-            this.cBoxOrderNo2.addItem("-");
-            for (int j = 0; j < (this.cBoxOrderNo2.getItemCount()); j++) { 
-                    this.cBoxOrderNo2.removeItemAt(0); }
             JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
             this.btnPay.setEnabled(false);
+            this.cBoxOrderNo2.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo2.getItemCount()); i++) { 
+               this.cBoxOrderNo2.removeItemAt(0); }
+            this.cBoxOrderNo.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo.getItemCount()); i++) {
+                 this.cBoxOrderNo.removeItemAt(0);
+            }
+            this.cBoxOrderNo3.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo3.getItemCount()); i++) {
+                 this.cBoxOrderNo3.removeItemAt(0);
+            }
             clearField();
         }
     }//GEN-LAST:event_btnSearch2ActionPerformed
@@ -622,10 +640,18 @@ public class PaymentMgmtJFrame extends javax.swing.JFrame {
         if (recordCheck) {            
             this.cBoxOrderNo3.removeItemAt(0);
         }else {
-            this.cBoxOrderNo3.addItem("-");
-            for (int j = 0; j < (this.cBoxOrderNo3.getItemCount()); j++) { 
-                    this.cBoxOrderNo3.removeItemAt(0); }
             JOptionPane.showMessageDialog(this, "Record Not Found!", "Information",JOptionPane.ERROR_MESSAGE);
+            this.cBoxOrderNo2.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo2.getItemCount()); i++) { 
+               this.cBoxOrderNo2.removeItemAt(0); }
+            this.cBoxOrderNo.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo.getItemCount()); i++) {
+                 this.cBoxOrderNo.removeItemAt(0);
+            }
+            this.cBoxOrderNo3.addItem("-");
+            for (int i = 0; i < (this.cBoxOrderNo3.getItemCount()); i++) {
+                 this.cBoxOrderNo3.removeItemAt(0);
+            }
             clearField();
         }
     }//GEN-LAST:event_btnSearch3ActionPerformed

@@ -39,9 +39,6 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
 
         lblCustomerHeader3 = new javax.swing.JLabel();
         lblDeliveryHeader = new javax.swing.JLabel();
-        txtIC = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        btnDSearch = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         cBoxDeliverStatus = new javax.swing.JComboBox();
         btnUpdate = new javax.swing.JButton();
@@ -61,15 +58,6 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
 
         lblDeliveryHeader.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
         lblDeliveryHeader.setText("Order Delivery Management");
-
-        jLabel16.setText("IC : ");
-
-        btnDSearch.setText("Search");
-        btnDSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDSearchActionPerformed(evt);
-            }
-        });
 
         jLabel17.setText("Delivery Status : ");
 
@@ -107,13 +95,7 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
                         .addComponent(lblDeliveryHeader)
                         .addGap(265, 265, 265))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
                 .addComponent(cBoxDeliverStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,9 +112,6 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
                 .addComponent(lblDeliveryHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(btnDSearch)
                     .addComponent(jLabel17)
                     .addComponent(btnUpdate)
                     .addComponent(cBoxDeliverStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,10 +122,6 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnDSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDSearchActionPerformed
-
-    }//GEN-LAST:event_btnDSearchActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         double amount,weight;
@@ -213,15 +188,12 @@ public class DeliveryMgmtJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox cBoxDeliverStatus;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCustomerHeader3;
     private javax.swing.JLabel lblDeliveryHeader;
     public static javax.swing.JTable tblDeliver;
-    private javax.swing.JTextField txtIC;
     // End of variables declaration//GEN-END:variables
 }

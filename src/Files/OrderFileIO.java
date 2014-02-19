@@ -13,31 +13,8 @@ import Classes.Order;
  * @author Miko
  */
 public class OrderFileIO extends FileHandler{
-    
     public  Vector<Order> orderV=new Vector<Order>(); 
-//    public  void main(String[] args) {
-//        //SaveCust();
-//        //AddPackage(12,"tt","mm","zz",33);
-//        System.out.println(orderV.elementAt(0).PackageObj.getPackageNo());
-//    }
-    
-//    public  void AddOrder(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd){
-//        fileCheck();
-//        retrieveData();
-//        orderV.addElement(new Order(Amount, IC, OrderNo, Weight, custName,SName,SAdd,CName,CAdd)); 
-//        save();
-//    }
-//    
-//    public  void EditOrder(double Amount, int IC, int OrderNo, double Weight, String custName,String SName,String SAdd,String CName, String CAdd){
-//        retrieveData();
-//        for (int i = 0; i <orderV.size(); i++) {
-//            if (orderV.elementAt(i).getOrderNo()==OrderNo) {
-//                orderV.setElementAt(new Order(Amount, IC, OrderNo, Weight, custName,SName,SAdd,CName,CAdd), i);
-//            }  
-//        }
-//        save();
-//    }
-    
+
      @Override
      public void add(Object order){
          if(order instanceof Order)

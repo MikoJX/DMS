@@ -496,7 +496,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tempus Sans ITC" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="View All Payment Record"/>
+                <Property name="text" type="java.lang.String" value="View Payment Record"/>
               </Properties>
             </Component>
           </SubComponents>

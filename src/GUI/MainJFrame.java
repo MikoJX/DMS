@@ -10,6 +10,7 @@ import Files.OrderFileIO;
 import Files.PackageFileIO;
 import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,6 +48,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblCustomerHeader3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,19 +104,28 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/20120121_134403_15.jpg"))); // NOI18N
         jLabel3.setMaximumSize(new java.awt.Dimension(259, 194));
 
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelivery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelivery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLogout))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +146,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addComponent(btnLogout)
+                        .addGap(2, 2, 2)
                         .addComponent(btnCustomer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnOrder)
@@ -147,17 +159,15 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(btnReport)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPackage)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator3)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCustomerHeader3)
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(lblCustomerHeader3)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -167,13 +177,12 @@ public class MainJFrame extends javax.swing.JFrame {
         JFrame cFrame = new CustMgmtJFrame();
         cFrame.setVisible(true);
         cFrame.setAlwaysOnTop( true );
+        cFrame.setLocationRelativeTo(null);
         cFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         String newPno;
         packObj.retrieveData();
         if(packObj.packV.size()!=0){
-            //CustMgmtJFrame.txtPackageNo.setText("111");
-            //CustMgmtJFrame.cboxPackageNo.addItem
            newPno=Integer.toString((packObj.packV.lastElement().getpackageNo())+1);
            
            for (int i = 0; i < packObj.packV.size(); i++) {
@@ -184,11 +193,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        //this.setVisible(false);
-        //CustMgmtJFrame.lblIdentity.setText(this.lblText.getText());
         JFrame oFrame = new OrderMgmtjFrame();
         oFrame.setVisible(true);
         oFrame.setAlwaysOnTop( true );
+        oFrame.setLocationRelativeTo(null);
         oFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         String newOno;
@@ -206,6 +214,7 @@ public class MainJFrame extends javax.swing.JFrame {
         JFrame dFrame = new DeliveryMgmtJFrame();
         dFrame.setVisible(true);
         dFrame.setAlwaysOnTop( true );
+        dFrame.setLocationRelativeTo(null);
         dFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         orderObj.retrieveData();
         
@@ -227,6 +236,7 @@ public class MainJFrame extends javax.swing.JFrame {
         JFrame pFrame = new PaymentMgmtJFrame();
         pFrame.setVisible(true);
         pFrame.setAlwaysOnTop( true );
+        pFrame.setLocationRelativeTo(null);
         pFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnPaymentActionPerformed
 
@@ -234,6 +244,7 @@ public class MainJFrame extends javax.swing.JFrame {
         JFrame rFrame = new ReportMgmtJFrame();
         rFrame.setVisible(true);
         rFrame.setAlwaysOnTop( true );
+        rFrame.setLocationRelativeTo(null);
         rFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnReportActionPerformed
 
@@ -242,13 +253,13 @@ public class MainJFrame extends javax.swing.JFrame {
         pFrame.setVisible(false);
         pFrame.setVisible(true);
         pFrame.setAlwaysOnTop( true );
+        pFrame.setLocationRelativeTo(null);
         pFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         String newPno;
         packObj.retrieveData();
         if(packObj.packV.size()==0){
             PackageMgmtJFrame.txtPackageNo.setText("111");
-            //PackageMgmtJFrame.cboxPackageNo.addItem("-");
         }
         else {
            newPno=Integer.toString((packObj.packV.lastElement().getpackageNo())+1);
@@ -259,6 +270,19 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         }        
     }//GEN-LAST:event_btnPackageActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        String dialogContent = "Do you want to logout ? ";
+        int dialogResult = JOptionPane.showConfirmDialog(this, dialogContent, "System Logout Confirmation",dialogButton);
+        
+        if (dialogResult==0) {
+            LoginJFrame logout = new LoginJFrame();
+            logout.setVisible(true);
+            logout.setLocationRelativeTo(null);
+            this.setVisible(false);
+        }             
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,6 +322,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnDelivery;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnOrder;
     public static javax.swing.JButton btnPackage;
     private javax.swing.JButton btnPayment;
